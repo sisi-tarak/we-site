@@ -85,7 +85,9 @@ const Header = ({ className = "" }: HeaderProps) => {
   useEffect(() => {
     // Load saved audience preference
     const savedAudience = localStorage.getItem("selectedAudience") as
-      | "worker" | "business" | "investor"
+      | "worker"
+      | "business"
+      | "investor"
       | null;
     if (
       savedAudience &&
@@ -96,7 +98,9 @@ const Header = ({ className = "" }: HeaderProps) => {
 
     // Listen for audience changes from LandingPage
     const handleAudienceChanged = (event: Event) => {
-      const customEvent = event as CustomEvent<{ audience: "worker" | "business" | "investor" }>;
+      const customEvent = event as CustomEvent<{
+        audience: "worker" | "business" | "investor";
+      }>;
       if (customEvent.detail?.audience) {
         setSelectedAudience(customEvent.detail.audience);
       }
@@ -112,7 +116,8 @@ const Header = ({ className = "" }: HeaderProps) => {
   useEffect(() => {
     const handleScroll = () => {
       // Update scroll progress
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
       const scrollHeight =
         document.documentElement.scrollHeight - window.innerHeight;
       const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
@@ -160,12 +165,13 @@ const Header = ({ className = "" }: HeaderProps) => {
   const handleNavClick = (href: string, e?: React.MouseEvent) => {
     e?.preventDefault();
     e?.stopPropagation();
-    
+
     const element = document.querySelector(href);
     if (element) {
       const headerHeight = 64; // Header height in pixels
       const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+      const offsetPosition =
+        elementPosition + window.pageYOffset - headerHeight;
 
       window.scrollTo({
         top: offsetPosition,
@@ -226,7 +232,6 @@ const Header = ({ className = "" }: HeaderProps) => {
             ))}
           </nav>
 
-          {/* Audience Selector & CTA */}
           <div className="hidden md:flex items-center space-x-4">
             {/* Audience Selector */}
             {/*<div className="relative">
