@@ -6,12 +6,22 @@ interface HeaderProps {
   className?: string;
 }
 
+// Constant navigation section IDs and hrefs (used for scrolling)
+const NAVIGATION_SECTION_IDS = [
+  "for-you",
+  "how-it-works",
+  "success-stories",
+  "pricing",
+  "get-started",
+];
+
 const Header = ({ className = "" }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("for-you");
   const [selectedAudience, setSelectedAudience] = useState<
     "worker" | "business" | "investor"
   >("worker");
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   const navigationSections = [
     {
@@ -73,31 +83,94 @@ const Header = ({ className = "" }: HeaderProps) => {
   ];
 
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = navigationSections.map((section) => ({
-        id: section.id,
-        element: document.getElementById(section.id),
-      }));
+    // Load saved audience preference
+    const savedAudience = localStorage.getItem("selectedAudience") as
+      | "worker" | "business" | "investor"
+      | null;
+    if (
+      savedAudience &&
+      ["worker", "business", "investor"].includes(savedAudience)
+    ) {
+      setSelectedAudience(savedAudience);
+    }
 
-      const currentSection = sections.find((section) => {
-        if (!section.element) return false;
-        const rect = section.element.getBoundingClientRect();
-        return rect.top <= 100 && rect.bottom >= 100;
-      });
-
-      if (currentSection) {
-        setActiveSection(currentSection.id);
+    // Listen for audience changes from LandingPage
+    const handleAudienceChanged = (event: Event) => {
+      const customEvent = event as CustomEvent<{ audience: "worker" | "business" | "investor" }>;
+      if (customEvent.detail?.audience) {
+        setSelectedAudience(customEvent.detail.audience);
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("audienceChanged", handleAudienceChanged);
+
+    return () => {
+      window.removeEventListener("audienceChanged", handleAudienceChanged);
+    };
   }, []);
 
-  const handleNavClick = (href: string) => {
+  useEffect(() => {
+    const handleScroll = () => {
+      // Update scroll progress
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const scrollHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      setScrollProgress(Math.min(100, Math.max(0, progress)));
+
+      // Update active section using constant section IDs
+      const sections = NAVIGATION_SECTION_IDS.map((id) => ({
+        id,
+        element: document.getElementById(id),
+      }));
+
+      // Find the section that's currently in view
+      const headerOffset = 100; // Account for header height
+      let currentSection = NAVIGATION_SECTION_IDS[0] || "for-you";
+
+      for (const section of sections) {
+        if (!section.element) continue;
+        const rect = section.element.getBoundingClientRect();
+        // Check if section is in viewport (with some offset)
+        if (rect.top <= headerOffset && rect.bottom >= headerOffset) {
+          currentSection = section.id;
+          break;
+        }
+        // If we've scrolled past this section, it's the active one
+        if (rect.top < headerOffset) {
+          currentSection = section.id;
+        }
+      }
+
+      setActiveSection(currentSection);
+    };
+
+    // Initial call
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, []); // navigationSections is effectively constant, so no need to include in deps
+
+  const handleNavClick = (href: string, e?: React.MouseEvent) => {
+    e?.preventDefault();
+    e?.stopPropagation();
+    
     const element = document.querySelector(href);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      const headerHeight = 64; // Header height in pixels
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
     }
     setIsMenuOpen(false);
   };
@@ -106,6 +179,7 @@ const Header = ({ className = "" }: HeaderProps) => {
     audience: "worker" | "business" | "investor"
   ) => {
     setSelectedAudience(audience);
+    localStorage.setItem("selectedAudience", audience);
     // Trigger content personalization across sections
     const event = new CustomEvent("audienceChanged", { detail: { audience } });
     window.dispatchEvent(event);
@@ -119,14 +193,20 @@ const Header = ({ className = "" }: HeaderProps) => {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <div className="flex items-center space-x-2">
+            <button
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+                setIsMenuOpen(false);
+              }}
+              className="flex items-center space-x-2 hover:opacity-80 transition-opacity cursor-pointer"
+            >
               <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
                 <span className="text-white font-heading-bold text-sm">WE</span>
               </div>
               <span className="font-heading-bold text-xl text-foreground">
                 WE Universal
               </span>
-            </div>
+            </button>
           </div>
 
           {/* Desktop Navigation */}
@@ -134,8 +214,8 @@ const Header = ({ className = "" }: HeaderProps) => {
             {navigationSections.map((section) => (
               <button
                 key={section.id}
-                onClick={() => handleNavClick(section.href)}
-                className={`font-body-medium text-sm transition-smooth hover:text-primary ${
+                onClick={(e) => handleNavClick(section.href, e)}
+                className={`font-body-medium text-sm transition-smooth hover:text-primary cursor-pointer ${
                   activeSection === section.id
                     ? "text-primary border-b-2 border-primary pb-1"
                     : "text-text-secondary"
@@ -149,7 +229,7 @@ const Header = ({ className = "" }: HeaderProps) => {
           {/* Audience Selector & CTA */}
           <div className="hidden md:flex items-center space-x-4">
             {/* Audience Selector */}
-            <div className="relative">
+            {/*<div className="relative">
               <select
                 value={selectedAudience}
                 onChange={(e) =>
@@ -179,7 +259,10 @@ const Header = ({ className = "" }: HeaderProps) => {
               iconName="ArrowRight"
               iconPosition="right"
               className="animate-pulse-cta shadow-cta"
-              onClick={() => handleNavClick("#get-started")}
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick("#get-started", e);
+              }}
             >
               {selectedAudience === "worker" && "Start Earning"}
               {selectedAudience === "business" && "Find Talent"}
@@ -189,8 +272,13 @@ const Header = ({ className = "" }: HeaderProps) => {
 
           {/* Mobile Menu Button */}
           <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-muted transition-smooth"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setIsMenuOpen(!isMenuOpen);
+            }}
+            className="md:hidden p-2 rounded-lg hover:bg-muted transition-smooth cursor-pointer"
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           >
             <Icon
               name={isMenuOpen ? "X" : "Menu"}
@@ -228,8 +316,8 @@ const Header = ({ className = "" }: HeaderProps) => {
               {navigationSections.map((section) => (
                 <button
                   key={section.id}
-                  onClick={() => handleNavClick(section.href)}
-                  className={`w-full text-left py-3 px-4 rounded-lg font-body-medium transition-smooth ${
+                  onClick={(e) => handleNavClick(section.href, e)}
+                  className={`w-full text-left py-3 px-4 rounded-lg font-body-medium transition-smooth cursor-pointer ${
                     activeSection === section.id
                       ? "bg-primary/10 text-primary border-l-4 border-primary"
                       : "text-text-secondary hover:bg-muted hover:text-foreground"
@@ -255,7 +343,10 @@ const Header = ({ className = "" }: HeaderProps) => {
                 iconName="ArrowRight"
                 iconPosition="right"
                 className="animate-pulse-cta shadow-cta"
-                onClick={() => handleNavClick("#get-started")}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick("#get-started", e);
+                }}
               >
                 {selectedAudience === "worker" && "Start Earning Today"}
                 {selectedAudience === "business" && "Find Talent Now"}
@@ -271,12 +362,7 @@ const Header = ({ className = "" }: HeaderProps) => {
         <div
           className="h-full bg-gradient-to-r from-primary to-accent transition-all duration-300 ease-out"
           style={{
-            width: `${Math.min(
-              100,
-              (window.pageYOffset /
-                (document.documentElement.scrollHeight - window.innerHeight)) *
-                100
-            )}%`,
+            width: `${scrollProgress}%`,
           }}
         />
       </div>

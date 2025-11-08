@@ -126,7 +126,7 @@ const HeroSection = ({
   }, [headlines.length]);
 
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-background via-muted/30 to-accent/10 overflow-hidden">
+    <section id="for-you" className="relative min-h-screen bg-gradient-to-br from-background via-muted/30 to-accent/10 overflow-hidden">
       {/* Animated Background Particles */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-20 left-10 w-2 h-2 bg-primary rounded-full animate-pulse opacity-60" />
@@ -233,6 +233,19 @@ const HeroSection = ({
                 iconName="ArrowRight"
                 iconPosition="right"
                 className="animate-pulse-cta shadow-cta text-lg px-8 py-4"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const element = document.getElementById("get-started");
+                  if (element) {
+                    const headerHeight = 64;
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+                    window.scrollTo({
+                      top: offsetPosition,
+                      behavior: "smooth",
+                    });
+                  }
+                }}
               >
                 {currentAudience.ctaText}
               </Button>

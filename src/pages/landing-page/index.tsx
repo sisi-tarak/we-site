@@ -201,11 +201,21 @@ const LandingPage = () => {
       {/* Floating Action Button for Mobile */}
       <div className="fixed bottom-6 right-6 z-50 md:hidden">
         <button
-          onClick={() => {
-            const ctaSection = document.querySelector('[data-section="cta"]');
-            ctaSection?.scrollIntoView({ behavior: "smooth" });
+          onClick={(e) => {
+            e.preventDefault();
+            const element = document.getElementById("get-started");
+            if (element) {
+              const headerHeight = 64;
+              const elementPosition = element.getBoundingClientRect().top;
+              const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+              window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth",
+              });
+            }
           }}
-          className="w-14 h-14 bg-gradient-to-br from-primary to-accent rounded-full shadow-lg flex items-center justify-center text-white animate-pulse-cta"
+          className="w-14 h-14 bg-gradient-to-br from-primary to-accent rounded-full shadow-lg flex items-center justify-center text-white animate-pulse-cta cursor-pointer hover:scale-110 transition-transform"
+          aria-label="Scroll to get started"
         >
           <span className="text-sm font-heading-bold">
             {selectedAudience === "worker"

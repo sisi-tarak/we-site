@@ -75,6 +75,7 @@ const HowItWorksSection = () => {
 
   return (
     <section
+      id="how-it-works"
       ref={sectionRef}
       className="py-20 bg-gradient-to-b from-muted/30 to-background relative overflow-hidden"
     >

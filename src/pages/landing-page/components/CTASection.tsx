@@ -93,7 +93,7 @@ const CTASection = ({ selectedAudience }: CTASectionProps) => {
   const content = ctaContent[selectedAudience];
 
   return (
-    <section className="py-20 bg-gradient-to-br from-primary via-primary/90 to-secondary relative overflow-hidden">
+    <section id="get-started" className="py-20 bg-gradient-to-br from-primary via-primary/90 to-secondary relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Animated Gradient Orbs */}
@@ -286,6 +286,20 @@ const CTASection = ({ selectedAudience }: CTASectionProps) => {
                   iconName="ArrowRight"
                   iconPosition="right"
                   className="bg-white text-primary hover:bg-white/90 shadow-lg animate-pulse-cta"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    // Scroll to top of this section (get-started)
+                    const element = document.getElementById("get-started");
+                    if (element) {
+                      const headerHeight = 64;
+                      const elementPosition = element.getBoundingClientRect().top;
+                      const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+                      window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth",
+                      });
+                    }
+                  }}
                 >
                   {content.primaryCTA}
                 </Button>
@@ -295,6 +309,11 @@ const CTASection = ({ selectedAudience }: CTASectionProps) => {
                   iconName="Play"
                   iconPosition="left"
                   className="text-white border-white/30 hover:bg-white/10"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    // Demo button - you can add video modal or link here
+                    console.log("Play demo video");
+                  }}
                 >
                   {content.secondaryCTA}
                 </Button>
@@ -410,6 +429,20 @@ const CTASection = ({ selectedAudience }: CTASectionProps) => {
               iconName="ArrowRight"
               iconPosition="right"
               className="bg-white text-primary hover:bg-white/90 shadow-lg animate-pulse-cta"
+              onClick={(e) => {
+                e.preventDefault();
+                // Scroll to top of form in this section
+                const formElement = document.querySelector('#get-started form');
+                if (formElement) {
+                  const headerHeight = 64;
+                  const elementPosition = formElement.getBoundingClientRect().top;
+                  const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+                  window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth",
+                  });
+                }
+              }}
             >
               {content.primaryCTA}
             </Button>
@@ -419,6 +452,11 @@ const CTASection = ({ selectedAudience }: CTASectionProps) => {
               iconName="Play"
               iconPosition="left"
               className="text-white border-white/30 hover:bg-white/10"
+              onClick={(e) => {
+                e.preventDefault();
+                // Demo button - you can add video modal or link here
+                console.log("Play demo video");
+              }}
             >
               {content.secondaryCTA}
             </Button>

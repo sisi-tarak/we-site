@@ -116,7 +116,7 @@ const TestimonialsSection = ({ selectedAudience }: TestimonialsSectionProps) => 
   if (!currentTestimonialData) return null;
 
   return (
-    <section className="py-20 bg-gradient-to-br from-accent/5 via-background to-primary/5 relative overflow-hidden">
+    <section id="success-stories" className="py-20 bg-gradient-to-br from-accent/5 via-background to-primary/5 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-20 left-20 w-40 h-40 bg-primary/5 rounded-full blur-3xl" />

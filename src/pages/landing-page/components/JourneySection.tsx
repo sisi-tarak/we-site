@@ -439,6 +439,19 @@ const JourneySection = ({ selectedAudience }: JourneySectionProps) => {
               iconName="ArrowRight"
               iconPosition="right"
               className="animate-pulse-cta shadow-cta"
+              onClick={(e) => {
+                e.preventDefault();
+                const element = document.getElementById("get-started");
+                if (element) {
+                  const headerHeight = 64;
+                  const elementPosition = element.getBoundingClientRect().top;
+                  const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+                  window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth",
+                  });
+                }
+              }}
             >
               {selectedAudience === "worker" && "Start Your Journey"}
               {selectedAudience === "business" && "Post Your First Task"}

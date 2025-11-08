@@ -174,7 +174,7 @@ const PricingSection = ({ selectedAudience }: PricingSectionProps) => {
   const currentTiers = pricingTiers[selectedAudience];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-background to-muted/30 relative overflow-hidden">
+    <section id="pricing" className="py-20 bg-gradient-to-b from-background to-muted/30 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-br from-primary/5 to-transparent rounded-full blur-3xl" />
@@ -356,6 +356,19 @@ const PricingSection = ({ selectedAudience }: PricingSectionProps) => {
                 iconName="ArrowRight"
                 iconPosition="right"
                 className={tier.highlighted ? 'animate-pulse-cta shadow-cta' : ''}
+                onClick={(e) => {
+                  e.preventDefault();
+                  const element = document.getElementById("get-started");
+                  if (element) {
+                    const headerHeight = 64;
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+                    window.scrollTo({
+                      top: offsetPosition,
+                      behavior: "smooth",
+                    });
+                  }
+                }}
               >
                 {tier.ctaText}
               </Button>
@@ -452,6 +465,20 @@ const PricingSection = ({ selectedAudience }: PricingSectionProps) => {
             variant="ghost"
             iconName="HelpCircle"
             iconPosition="left"
+            onClick={(e) => {
+              e.preventDefault();
+              // Scroll to FAQ section if it exists, otherwise scroll to get-started
+              const faqSection = document.querySelector('section:last-of-type');
+              if (faqSection) {
+                const headerHeight = 64;
+                const elementPosition = faqSection.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+                window.scrollTo({
+                  top: offsetPosition,
+                  behavior: "smooth",
+                });
+              }
+            }}
           >
             View Pricing FAQ
           </Button>
