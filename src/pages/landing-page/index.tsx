@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 import Header from "../../components/ui/Header";
 import ScrollProgressIndicator from "../../components/ui/ScrollProgressIndicator";
 import AudienceSelectorPersistence from "../../components/ui/AudienceSelectorPersistence";
-import ConversionTrackingNav from "../../components/ui/ConversionTrackingNav";
+import ConversionTrackingNav from "components/ui/ConversionTrackingNav";
 
 // Import all components
 import HeroSection from "./components/HeroSection";
