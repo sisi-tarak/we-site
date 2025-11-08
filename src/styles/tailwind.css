@@ -1,0 +1,151 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Core Colors */
+    --color-background: #ffffff; /* white */
+    --color-foreground: #1a1a1a; /* gray-900 */
+    --color-border: #e5e7eb; /* gray-200 */
+    --color-input: #ffffff; /* white */
+    --color-ring: #ff8c42; /* orange-500 */
+
+    /* Card Colors */
+    --color-card: #ffffff; /* white */
+    --color-card-foreground: #1a1a1a; /* gray-900 */
+
+    /* Popover Colors */
+    --color-popover: #ffffff; /* white */
+    --color-popover-foreground: #1a1a1a; /* gray-900 */
+
+    /* Muted Colors */
+    --color-muted: #f8f9fa; /* gray-50 */
+    --color-muted-foreground: #6b7280; /* gray-500 */
+
+    /* Primary Colors */
+    --color-primary: #ff8c42; /* orange-500 */
+    --color-primary-foreground: #ffffff; /* white */
+
+    /* Secondary Colors */
+    --color-secondary: #1b5e8f; /* blue-700 */
+    --color-secondary-foreground: #ffffff; /* white */
+
+    /* Destructive Colors */
+    --color-destructive: #ef4444; /* red-500 */
+    --color-destructive-foreground: #ffffff; /* white */
+
+    /* Accent Colors */
+    --color-accent: #ffb366; /* orange-300 */
+    --color-accent-foreground: #1a1a1a; /* gray-900 */
+
+    /* Success Colors */
+    --color-success: #10b981; /* emerald-500 */
+    --color-success-foreground: #ffffff; /* white */
+
+    /* Warning Colors */
+    --color-warning: #f59e0b; /* amber-500 */
+    --color-warning-foreground: #ffffff; /* white */
+
+    /* Error Colors */
+    --color-error: #ef4444; /* red-500 */
+    --color-error-foreground: #ffffff; /* white */
+
+    /* Surface Colors */
+    --color-surface: #f8f9fa; /* gray-50 */
+    --color-surface-foreground: #1a1a1a; /* gray-900 */
+
+    /* Text Colors */
+    --color-text-primary: #1a1a1a; /* gray-900 */
+    --color-text-secondary: #6b7280; /* gray-500 */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .font-heading {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+  }
+
+  .font-heading-bold {
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+  }
+
+  .font-heading-extra-bold {
+    font-family: "Inter", sans-serif;
+    font-weight: 800;
+  }
+
+  .font-body {
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+  }
+
+  .font-body-medium {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+  }
+
+  .font-cta {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+  }
+
+  .font-accent {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+  }
+
+  .font-accent-medium {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+  }
+
+  .shadow-cta {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  .shadow-card-hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+
+  .animate-pulse-cta {
+    animation: pulse-cta 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse-cta {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.02);
+    }
+  }
+
+  .transition-smooth {
+    transition: all 200ms ease-out;
+  }
+
+  .transition-card {
+    transition: all 300ms ease-in-out;
+  }
+}
