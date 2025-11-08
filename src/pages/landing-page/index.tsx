@@ -35,12 +35,30 @@ const LandingPage = () => {
       setSelectedAudience(savedAudience);
     }
 
+    // Listen for audience changes from Header or other components
+    const handleAudienceChanged = (event: Event) => {
+      const customEvent = event as CustomEvent<{
+        audience: AudienceType["id"];
+      }>;
+      if (
+        customEvent.detail?.audience &&
+        ["worker", "business", "investor"].includes(customEvent.detail.audience)
+      ) {
+        setSelectedAudience(customEvent.detail.audience);
+      }
+    };
+
+    window.addEventListener("audienceChanged", handleAudienceChanged);
+
     // Simulate initial loading
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1000);
 
-    return () => clearTimeout(timer);
+    return () => {
+      window.removeEventListener("audienceChanged", handleAudienceChanged);
+      clearTimeout(timer);
+    };
   }, []);
 
   const handleAudienceChange = (audience: AudienceType["id"]) => {
@@ -159,10 +177,7 @@ const LandingPage = () => {
       {/* Global Components */}
       <Header />
       <ScrollProgressIndicator />
-      <AudienceSelectorPersistence
-        selectedAudience={selectedAudience}
-        onAudienceChange={handleAudienceChange}
-      />
+      <AudienceSelectorPersistence onAudienceChange={handleAudienceChange} />
       <ConversionTrackingNav />
 
       {/* Main Content */}
@@ -207,7 +222,8 @@ const LandingPage = () => {
             if (element) {
               const headerHeight = 64;
               const elementPosition = element.getBoundingClientRect().top;
-              const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+              const offsetPosition =
+                elementPosition + window.pageYOffset - headerHeight;
               window.scrollTo({
                 top: offsetPosition,
                 behavior: "smooth",

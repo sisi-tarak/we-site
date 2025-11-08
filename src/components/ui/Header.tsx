@@ -22,6 +22,9 @@ const Header = ({ className = "" }: HeaderProps) => {
     "worker" | "business" | "investor"
   >("worker");
   const [scrollProgress, setScrollProgress] = useState(0);
+  const headerRef = React.useRef<HTMLElement>(null);
+  const menuRef = React.useRef<HTMLDivElement>(null);
+  const audienceChangeTimeRef = React.useRef<number>(0);
 
   const navigationSections = [
     {
@@ -81,6 +84,55 @@ const Header = ({ className = "" }: HeaderProps) => {
     { value: "business" as const, label: "Business", icon: "Building2" },
     { value: "investor" as const, label: "Investor", icon: "TrendingUp" },
   ];
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      // Prevent body scroll
+      const originalStyle = window.getComputedStyle(document.body).overflow;
+      document.body.style.overflow = "hidden";
+
+      return () => {
+        document.body.style.overflow = originalStyle;
+      };
+    }
+  }, [isMenuOpen]);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      if (
+        isMenuOpen &&
+        menuRef.current &&
+        headerRef.current &&
+        !menuRef.current.contains(event.target as Node) &&
+        !headerRef.current
+          .querySelector('button[aria-label*="menu"]')
+          ?.contains(event.target as Node)
+      ) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    // Close menu on ESC key
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && isMenuOpen) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("touchstart", handleClickOutside);
+      document.addEventListener("keydown", handleEscape);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [isMenuOpen]);
 
   useEffect(() => {
     // Load saved audience preference
@@ -162,28 +214,65 @@ const Header = ({ className = "" }: HeaderProps) => {
     };
   }, []); // navigationSections is effectively constant, so no need to include in deps
 
-  const handleNavClick = (href: string, e?: React.MouseEvent) => {
+  const handleNavClick = (
+    href: string,
+    e?: React.MouseEvent | React.TouchEvent
+  ) => {
     e?.preventDefault();
     e?.stopPropagation();
 
-    const element = document.querySelector(href);
-    if (element) {
-      const headerHeight = 64; // Header height in pixels
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition =
-        elementPosition + window.pageYOffset - headerHeight;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
-    }
+    // Close menu first
     setIsMenuOpen(false);
+
+    // Calculate delay based on whether audience just changed
+    // If audience changed recently, wait longer for React to update sections
+    const timeSinceAudienceChange = Date.now() - audienceChangeTimeRef.current;
+    const baseDelay = 150; // Base delay for menu animation
+    const audienceChangeDelay = timeSinceAudienceChange < 500 ? 350 : 0;
+    const totalDelay = baseDelay + audienceChangeDelay;
+
+    // Wait for menu animation AND React state updates to complete before scrolling
+    // This ensures sections have updated with the new audience before we scroll to them
+    setTimeout(() => {
+      // Use requestAnimationFrame to ensure DOM has updated
+      requestAnimationFrame(() => {
+        const element = document.querySelector(href);
+        if (element) {
+          // Get actual header height (may vary on mobile)
+          const headerElement = headerRef.current;
+          const headerHeight = headerElement ? headerElement.offsetHeight : 64;
+
+          // Get element position (recalculate in case content changed)
+          const elementPosition = element.getBoundingClientRect().top;
+          const currentScroll =
+            window.pageYOffset || document.documentElement.scrollTop;
+          const offsetPosition = elementPosition + currentScroll - headerHeight;
+
+          // Smooth scroll with better mobile support
+          if ("scrollBehavior" in document.documentElement.style) {
+            window.scrollTo({
+              top: Math.max(0, offsetPosition),
+              behavior: "smooth",
+            });
+          } else {
+            // Fallback for older browsers
+            window.scrollTo(0, Math.max(0, offsetPosition));
+          }
+        }
+      });
+    }, totalDelay);
   };
 
   const handleAudienceChange = (
-    audience: "worker" | "business" | "investor"
+    audience: "worker" | "business" | "investor",
+    e?: React.MouseEvent | React.TouchEvent
   ) => {
+    e?.preventDefault();
+    e?.stopPropagation();
+
+    // Track when audience changes so navigation can wait for content to update
+    audienceChangeTimeRef.current = Date.now();
+
     setSelectedAudience(audience);
     localStorage.setItem("selectedAudience", audience);
     // Trigger content personalization across sections
@@ -193,6 +282,7 @@ const Header = ({ className = "" }: HeaderProps) => {
 
   return (
     <header
+      ref={headerRef}
       className={`sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border ${className}`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -200,16 +290,23 @@ const Header = ({ className = "" }: HeaderProps) => {
           {/* Logo */}
           <div className="flex items-center">
             <button
-              onClick={() => {
-                window.scrollTo({ top: 0, behavior: "smooth" });
+              onClick={(e) => {
+                e.preventDefault();
                 setIsMenuOpen(false);
+                window.scrollTo({ top: 0, behavior: "smooth" });
               }}
-              className="flex items-center space-x-2 hover:opacity-80 transition-opacity cursor-pointer"
+              onTouchEnd={(e) => {
+                e.preventDefault();
+                setIsMenuOpen(false);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              className="flex items-center space-x-2 hover:opacity-80 active:opacity-70 transition-opacity cursor-pointer touch-manipulation"
+              aria-label="Scroll to top"
             >
               <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
                 <span className="text-white font-heading-bold text-sm">WE</span>
               </div>
-              <span className="font-heading-bold text-xl text-foreground">
+              <span className="font-heading-bold text-xl text-foreground hidden sm:inline-block">
                 WE Universal
               </span>
             </button>
@@ -282,84 +379,132 @@ const Header = ({ className = "" }: HeaderProps) => {
               e.stopPropagation();
               setIsMenuOpen(!isMenuOpen);
             }}
-            className="md:hidden p-2 rounded-lg hover:bg-muted transition-smooth cursor-pointer"
+            onTouchEnd={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setIsMenuOpen(!isMenuOpen);
+            }}
+            className="md:hidden p-2.5 rounded-lg hover:bg-muted active:bg-muted/80 transition-all duration-200 cursor-pointer touch-manipulation active:scale-95"
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-navigation"
           >
             <Icon
               name={isMenuOpen ? "X" : "Menu"}
               size={24}
-              className="text-foreground"
+              className="text-foreground transition-transform duration-200"
             />
           </button>
         </div>
 
         {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-border">
-            {/* Mobile Audience Selector */}
-            <div className="mb-4">
-              <div className="flex space-x-2">
-                {audienceOptions.map((option) => (
-                  <button
-                    key={option.value}
-                    onClick={() => handleAudienceChange(option.value)}
-                    className={`flex-1 flex items-center justify-center space-x-2 py-2 px-3 rounded-lg text-sm font-body-medium transition-smooth ${
-                      selectedAudience === option.value
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-muted text-text-secondary hover:bg-accent hover:text-accent-foreground"
-                    }`}
-                  >
-                    <Icon name={option.icon} size={16} />
-                    <span>{option.label}</span>
-                  </button>
-                ))}
-              </div>
+        <div
+          id="mobile-navigation"
+          ref={menuRef}
+          className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+            isMenuOpen
+              ? "max-h-[100vh] opacity-100 py-4 border-t border-border"
+              : "max-h-0 opacity-0 py-0 border-t-0 pointer-events-none"
+          }`}
+          aria-hidden={!isMenuOpen}
+        >
+          {/* Mobile Audience Selector */}
+          <div className="mb-4 px-1">
+            <div className="text-xs font-body-medium text-text-secondary mb-2 px-1">
+              Select Your Role
             </div>
-
-            {/* Mobile Navigation Links */}
-            <nav className="space-y-2">
-              {navigationSections.map((section) => (
+            <div className="flex space-x-2">
+              {audienceOptions.map((option) => (
                 <button
-                  key={section.id}
-                  onClick={(e) => handleNavClick(section.href, e)}
-                  className={`w-full text-left py-3 px-4 rounded-lg font-body-medium transition-smooth cursor-pointer ${
-                    activeSection === section.id
-                      ? "bg-primary/10 text-primary border-l-4 border-primary"
-                      : "text-text-secondary hover:bg-muted hover:text-foreground"
+                  key={option.value}
+                  onClick={(e) => handleAudienceChange(option.value, e)}
+                  onTouchEnd={(e) => {
+                    e.preventDefault();
+                    handleAudienceChange(option.value, e);
+                  }}
+                  className={`flex-1 flex items-center justify-center space-x-2 py-3 px-3 rounded-lg text-sm font-body-medium transition-all duration-200 active:scale-95 touch-manipulation ${
+                    selectedAudience === option.value
+                      ? "bg-primary text-primary-foreground shadow-md"
+                      : "bg-muted text-text-secondary active:bg-accent active:text-accent-foreground"
                   }`}
+                  aria-label={`Switch to ${option.label} view`}
+                  aria-pressed={selectedAudience === option.value}
                 >
-                  <div className="flex items-center justify-between">
-                    <span>{section.audienceLabels[selectedAudience]}</span>
-                    <Icon name="ChevronRight" size={16} />
-                  </div>
-                  <div className="text-xs text-text-secondary mt-1">
-                    {section.label}
-                  </div>
+                  <Icon name={option.icon} size={18} />
+                  <span className="font-body-medium">{option.label}</span>
                 </button>
               ))}
-            </nav>
-
-            {/* Mobile CTA */}
-            <div className="mt-4 pt-4 border-t border-border">
-              <Button
-                variant="default"
-                size="default"
-                fullWidth
-                iconName="ArrowRight"
-                iconPosition="right"
-                className="animate-pulse-cta shadow-cta"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavClick("#get-started", e);
-                }}
-              >
-                {selectedAudience === "worker" && "Start Earning Today"}
-                {selectedAudience === "business" && "Find Talent Now"}
-                {selectedAudience === "investor" && "Start Investing"}
-              </Button>
             </div>
           </div>
-        )}
+
+          {/* Mobile Navigation Links */}
+          <nav className="space-y-1">
+            {navigationSections.map((section, index) => (
+              <button
+                key={section.id}
+                onClick={(e) => handleNavClick(section.href, e)}
+                onTouchEnd={(e) => {
+                  e.preventDefault();
+                  handleNavClick(section.href, e);
+                }}
+                className={`w-full text-left py-4 px-4 rounded-lg font-body-medium transition-all duration-200 cursor-pointer touch-manipulation active:scale-[0.98] ${
+                  activeSection === section.id
+                    ? "bg-primary/15 text-primary border-l-4 border-primary shadow-sm"
+                    : "text-text-secondary active:bg-muted active:text-foreground"
+                }`}
+                style={{
+                  animationDelay: isMenuOpen ? `${index * 50}ms` : "0ms",
+                }}
+                aria-label={`Navigate to ${section.label}`}
+                aria-current={activeSection === section.id ? "page" : undefined}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex flex-col items-start">
+                    <span className="font-body-medium text-base">
+                      {section.audienceLabels[selectedAudience]}
+                    </span>
+                    <span className="text-xs text-text-secondary mt-0.5 font-body">
+                      {section.label}
+                    </span>
+                  </div>
+                  <Icon
+                    name="ChevronRight"
+                    size={18}
+                    className={`transition-transform ${
+                      activeSection === section.id
+                        ? "text-primary"
+                        : "text-text-secondary"
+                    }`}
+                  />
+                </div>
+              </button>
+            ))}
+          </nav>
+
+          {/* Mobile CTA */}
+          <div className="mt-6 pt-4 border-t border-border">
+            <Button
+              variant="default"
+              size="default"
+              fullWidth
+              iconName="ArrowRight"
+              iconPosition="right"
+              className="animate-pulse-cta shadow-cta py-4 text-base font-body-medium"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick("#get-started", e);
+              }}
+              onTouchEnd={(e) => {
+                e.preventDefault();
+                handleNavClick("#get-started", e);
+              }}
+            >
+              {selectedAudience === "worker" && "Start Earning Today"}
+              {selectedAudience === "business" && "Find Talent Now"}
+              {selectedAudience === "investor" && "Start Investing"}
+            </Button>
+          </div>
+        </div>
       </div>
 
       {/* Progress Indicator */}
