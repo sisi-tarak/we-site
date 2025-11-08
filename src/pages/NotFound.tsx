@@ -16,16 +16,18 @@ const NotFound: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background p-4">
       <div className="text-center max-w-md">
-        <div className="flex justify-center mb-6">
+        <div className="flex justify-center mb-[-5.5rem] sm:mb-[-8rem]">
           <div className="relative">
-            <h1 className="text-9xl font-bold text-primary opacity-20">404</h1>
+            <h1 className="text-[8rem] sm:text-[12rem] font-bold text-[#eb7b44] opacity-20">
+              404
+            </h1>
           </div>
         </div>
 
-        <h2 className="text-2xl font-medium text-onBackground mb-2">
+        <h2 className="text-3xl sm:text-5xl font-bold text-[#244463] mb-10 sm:mb-20">
           Page Not Found
         </h2>
-        <p className="text-onBackground/70 mb-8">
+        <p className="text-sm sm:text-lg text-onBackground/70 mb-8">
           The page you're looking for doesn't exist. Let's get you back!
         </p>
 
