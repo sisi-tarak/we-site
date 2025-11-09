@@ -114,7 +114,7 @@ const HeroSection = ({
   const headlines = [
     currentAudience.heroTitle,
     `Join India's Most Trusted Gig Platform`,
-    `${currentAudience.benefits[0]} - Limited Time`,
+    `${currentAudience.benefits[0]} - Limited`,
   ];
 
   useEffect(() => {
@@ -126,7 +126,10 @@ const HeroSection = ({
   }, [headlines.length]);
 
   return (
-    <section id="for-you" className="relative min-h-screen bg-gradient-to-br from-background via-muted/30 to-accent/10 overflow-hidden">
+    <section
+      id="for-you"
+      className="relative min-h-screen bg-gradient-to-br from-background via-muted/30 to-accent/10 overflow-hidden"
+    >
       {/* Animated Background Particles */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-20 left-10 w-2 h-2 bg-primary rounded-full animate-pulse opacity-60" />
@@ -175,7 +178,7 @@ const HeroSection = ({
           {/* Left Content */}
           <div className="flex-1 lg:pr-12 text-center lg:text-left">
             {/* Dynamic Headlines */}
-            <div className="mb-6 h-20 flex items-center justify-center lg:justify-start">
+            <div className="2xl:mb-10 mb-10 sm:mb-6 md:mb-10 lg:mb-16 h-20 flex items-center justify-center lg:justify-start">
               <AnimatePresence mode="wait">
                 <motion.h1
                   key={currentHeadline}
@@ -239,7 +242,8 @@ const HeroSection = ({
                   if (element) {
                     const headerHeight = 64;
                     const elementPosition = element.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+                    const offsetPosition =
+                      elementPosition + window.pageYOffset - headerHeight;
                     window.scrollTo({
                       top: offsetPosition,
                       behavior: "smooth",
