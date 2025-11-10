@@ -24,7 +24,7 @@ const HeroSection = ({
       icon: "Users",
       description: "Earn flexible income",
       color: "text-success",
-      heroTitle: "Start Earning Today with Zero Commission",
+      heroTitle: "Start Earning Today with 0% Commission",
       heroSubtitle:
         "Join 10,000+ students earning ₹10,000+/month with verified tasks and instant UPI payments",
       ctaText: "Start Earning Now",
@@ -58,7 +58,7 @@ const HeroSection = ({
       icon: "TrendingUp",
       description: "High-growth investment",
       color: "text-warning",
-      heroTitle: "Invest in India's Fastest Growing Gig Platform",
+      heroTitle: "Invest in Fastest Growing Gig Platform",
       heroSubtitle:
         "Early investment opportunity with 15-25x return potential in India's ₹400Cr gig economy",
       ctaText: "View Investment Details",
