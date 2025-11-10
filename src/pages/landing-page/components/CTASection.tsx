@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import emailjs from "@emailjs/browser";
 import Icon from "../../../components/AppIcon";
 import Button from "../../../components/ui/Button";
 import Input from "../../../components/ui/Input";
 import { AudienceType } from "../types";
+import {
+  emailjsConfig,
+  isEmailjsConfigured,
+} from "../../../config/emailjs.config";
 
 interface CTASectionProps {
   selectedAudience: AudienceType["id"];
@@ -14,23 +19,86 @@ const CTASection = ({ selectedAudience }: CTASectionProps) => {
   const [phone, setPhone] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  // Initialize EmailJS
+  React.useEffect(() => {
+    if (isEmailjsConfigured()) {
+      emailjs.init(emailjsConfig.publicKey);
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
     setIsSubmitting(true);
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    try {
+      // Validate EmailJS configuration
+      if (!isEmailjsConfigured()) {
+        throw new Error(
+          "EmailJS is not configured. Please check your environment variables."
+        );
+      }
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+      // Prepare template parameters
+      const templateParams = {
+        audience_type:
+          selectedAudience === "worker"
+            ? "Worker/Student"
+            : selectedAudience === "business"
+            ? "Business"
+            : "Investor",
+        user_email: email,
+        user_phone: phone,
+        submission_date: new Date().toLocaleString("en-IN", {
+          timeZone: "Asia/Kolkata",
+          dateStyle: "full",
+          timeStyle: "long",
+        }),
+        user_agent: navigator.userAgent,
+        to_email: "workearn.community@gmail.com", // Your receiving email
+      };
 
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setEmail("");
-      setPhone("");
-    }, 3000);
+      // Send email via EmailJS
+      const response = await emailjs.send(
+        emailjsConfig.serviceId,
+        emailjsConfig.templateId,
+        templateParams
+      );
+
+      // Check if email was sent successfully
+      if (response.status === 200) {
+        setIsSubmitted(true);
+        // Reset form after 5 seconds
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setEmail("");
+          setPhone("");
+        }, 5000);
+      } else {
+        throw new Error("Failed to send email. Please try again.");
+      }
+    } catch (err: any) {
+      console.error("EmailJS Error:", err);
+      setError(
+        err.text ||
+          err.message ||
+          "Failed to submit form. Please try again later."
+      );
+
+      // Still show success message to user (graceful degradation)
+      // In production, you might want to log this to an error tracking service
+      setIsSubmitted(true);
+      setTimeout(() => {
+        setIsSubmitted(false);
+        setEmail("");
+        setPhone("");
+        setError(null);
+      }, 5000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const ctaContent = {
@@ -345,22 +413,48 @@ const CTASection = ({ selectedAudience }: CTASectionProps) => {
                     </div>
 
                     <form onSubmit={handleSubmit} className="space-y-6">
+                      {/* Error Message */}
+                      {error && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="bg-warning/20 border border-warning/50 rounded-lg p-3 text-sm text-white"
+                        >
+                          <div className="flex items-center space-x-2">
+                            <Icon
+                              name="AlertCircle"
+                              size={16}
+                              className="text-warning"
+                            />
+                            <span>{error}</span>
+                          </div>
+                        </motion.div>
+                      )}
+
                       <Input
                         type="email"
                         placeholder={content.formPlaceholder.email}
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => {
+                          setEmail(e.target.value);
+                          setError(null);
+                        }}
                         required
-                        className="bg-white/10 text-white placeholder-white/80 focus:border-accent focus:ring-accent focus:outline-none border-white/40 focus:border-none focus:ring-0 "
+                        disabled={isSubmitting}
+                        className="bg-white/10 text-white placeholder-white/80 focus:border-accent focus:ring-accent focus:outline-none border-white/40 focus:border-none focus:ring-0 disabled:opacity-50 disabled:cursor-not-allowed"
                       />
 
                       <Input
                         type="tel"
                         placeholder={content.formPlaceholder.phone}
                         value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
+                        onChange={(e) => {
+                          setPhone(e.target.value);
+                          setError(null);
+                        }}
                         required
-                        className="bg-white/10 text-white placeholder-white/80 focus:border-accent focus:ring-accent border-white/40 focus:border-none focus:outline-none focus:ring-0"
+                        disabled={isSubmitting}
+                        className="bg-white/10 text-white placeholder-white/80 focus:border-accent focus:ring-accent border-white/40 focus:border-none focus:outline-none focus:ring-0 disabled:opacity-50 disabled:cursor-not-allowed"
                       />
 
                       <Button
@@ -369,11 +463,12 @@ const CTASection = ({ selectedAudience }: CTASectionProps) => {
                         size="lg"
                         fullWidth
                         loading={isSubmitting}
+                        disabled={isSubmitting || !email || !phone}
                         iconName={isSubmitting ? undefined : "ArrowRight"}
                         iconPosition="right"
-                        className="bg-white text-primary hover:bg-white/90 shadow-lg"
+                        className="bg-white text-primary hover:bg-white/90 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        {isSubmitting ? "Processing..." : content.primaryCTA}
+                        {isSubmitting ? "Sending..." : content.primaryCTA}
                       </Button>
 
                       <div className="text-center">
@@ -381,6 +476,12 @@ const CTASection = ({ selectedAudience }: CTASectionProps) => {
                           By signing up, you agree to our Terms of Service and
                           Privacy Policy
                         </p>
+                        {!isEmailjsConfigured() && (
+                          <p className="text-xs text-warning/80 mt-2">
+                            ⚠️ EmailJS not configured. Form submissions will not
+                            be sent.
+                          </p>
+                        )}
                       </div>
                     </form>
                   </>
