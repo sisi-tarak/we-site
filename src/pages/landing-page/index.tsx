@@ -74,36 +74,36 @@ const LandingPage = () => {
   const getSEOContent = () => {
     const baseTitle = "WE Universal - India's Most Trusted Gig Platform";
     const baseDescription =
-      "Join India's fastest-growing gig economy platform with 100% verified users, instant UPI payments, and zero commission first month.";
+      "AI-powered gig platform with zero commission for workers, flexible subscription plans for businesses, dynamic delivery fees, and automatic refunds. 100% verified users, instant UPI payments.";
 
     switch (selectedAudience) {
       case "worker":
         return {
-          title: `${baseTitle} | Start Earning ₹10,000+/Month`,
-          description: `${baseDescription} Perfect for students and homemakers seeking flexible income opportunities.`,
+          title: `${baseTitle} | Zero Commission Forever - Earn 100%`,
+          description: `Workers never pay commission - keep 100% of your earnings forever. Earn rewards, badges, and bonuses. Join 10,000+ students earning ₹10,000+/month with instant UPI payments.`,
           keywords:
-            "gig work, student jobs, flexible income, part-time work, online earning, UPI payments, college students, homemakers",
+            "zero commission, worker rewards, student jobs, flexible income, part-time work, online earning, UPI payments, gig work, worker rewards program, verified badge, credits, referral bonuses",
         };
       case "business":
         return {
-          title: `${baseTitle} | Find Verified Local Talent`,
-          description: `${baseDescription} Connect with pre-verified professionals and reduce operational costs by 60%.`,
+          title: `${baseTitle} | Flexible Subscription Plans - AI Invoicing`,
+          description: `Choose subscription plans (₹299, ₹599, ₹799/month) with zero commission up to your limit. AI-powered invoicing, dynamic delivery fees, automatic refunds. Post tasks with complete transparency.`,
           keywords:
-            "hire talent, verified workers, local professionals, task outsourcing, business solutions, cost reduction",
+            "subscription plans, task posting, AI invoice, dynamic delivery fees, escrow protection, verified workers, business solutions, flexible pricing, automatic refunds",
         };
       case "investor":
         return {
-          title: `${baseTitle} | 15-25x Return Investment Opportunity`,
-          description: `${baseDescription} Early investment opportunity in India's ₹400Cr gig economy market.`,
+          title: `${baseTitle} | Partnership Opportunities & Waitlist`,
+          description: `Join our partnership waitlist for future investment and business collaboration opportunities. Get early access to platform metrics, market insights, and partnership options.`,
           keywords:
-            "investment opportunity, startup investment, gig economy, high returns, Series A, angel investment",
+            "partnership opportunities, business partnerships, investment waitlist, gig economy, platform metrics, market insights, collaboration",
         };
       default:
         return {
           title: baseTitle,
           description: baseDescription,
           keywords:
-            "gig economy, verified platform, instant payments, flexible work, India",
+            "gig economy, verified platform, instant payments, flexible work, AI invoicing, dynamic fees, zero commission, worker rewards, India",
         };
     }
   };
@@ -237,8 +237,8 @@ const LandingPage = () => {
             {selectedAudience === "worker"
               ? "Earn"
               : selectedAudience === "business"
-              ? "Hire"
-              : "Invest"}
+              ? "Post"
+              : "Join"}
           </span>
         </button>
       </div>

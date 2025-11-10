@@ -13,47 +13,47 @@ const HowItWorksSection = () => {
 
   const timelineSteps: TimelineStep[] = [
     {
-      id: "verification",
+      id: "signup",
       step: 1,
-      title: "Community Verification",
+      title: "Sign Up & Verify",
       description:
-        "All users undergo strict verification using College ID, Aadhaar, and background checks to ensure a trusted ecosystem.",
-      icon: "Shield",
+        "Create your account and verify with College ID/Aadhaar. Workers sign up for free. Businesses choose a subscription plan (₹299, ₹599, or ₹799/month).",
+      icon: "UserPlus",
       color: "text-success",
     },
     {
-      id: "matching",
+      id: "post-task",
       step: 2,
-      title: "Smart Matching",
+      title: "Post Task & AI Invoice",
       description:
-        "Our AI-powered system matches tasks with the most suitable verified workers based on skills, location, and availability.",
-      icon: "Zap",
+        "Businesses post tasks with details. Our AI generates an upfront estimated invoice using real-time online price data with a buffer (12% tier-2, 18% metro). Dynamic delivery fee calculated by distance and grocery cost.",
+      icon: "FileText",
       color: "text-primary",
     },
     {
-      id: "escrow",
+      id: "approve-escrow",
       step: 3,
-      title: "Escrow Protection",
+      title: "Approve & Escrow Lock",
       description:
-        "Payments are held in secure escrow until task completion, protecting both workers and businesses throughout the process.",
+        "Business approves the AI-generated invoice. Payment is locked in secure escrow. Worker accepts and begins the task with milestone tracking.",
       icon: "Lock",
       color: "text-secondary",
     },
     {
-      id: "completion",
+      id: "complete-task",
       step: 4,
-      title: "Task Completion",
+      title: "Complete & Report",
       description:
-        "Workers complete tasks with milestone tracking and real-time communication, ensuring quality and transparency.",
+        "Worker completes the task, uploads receipt, and reports completion. System compares actual bill vs estimated invoice. Unused buffer and delivery fee adjustments calculated automatically.",
       icon: "CheckCircle",
       color: "text-warning",
     },
     {
-      id: "payment",
+      id: "refund-payment",
       step: 5,
-      title: "Instant Payment",
+      title: "Automatic Refund & Payment",
       description:
-        "Upon approval, payments are instantly transferred via UPI, with ratings and reviews building long-term reputation.",
+        "If actual bill is less than estimate, automatic refund credited. Dynamic delivery fee refunded proportionally. Escrow releases payment to worker via instant UPI. Credits and rewards awarded.",
       icon: "Wallet",
       color: "text-success",
     },
@@ -160,8 +160,8 @@ const HowItWorksSection = () => {
             transition={{ delay: 0.1 }}
             className="text-3xl md:text-4xl lg:text-5xl font-heading-bold text-foreground mb-6"
           >
-            Simple, Secure, and
-            <span className="text-primary"> Transparent</span>
+            AI-Powered, Transparent, and
+            <span className="text-primary"> Fair</span>
           </motion.h2>
 
           <motion.p
@@ -171,9 +171,7 @@ const HowItWorksSection = () => {
             transition={{ delay: 0.2 }}
             className="text-lg text-text-secondary max-w-2xl mx-auto"
           >
-            Our platform ensures trust and quality at every step, from
-            verification to payment, creating a secure ecosystem for all
-            participants.
+            Our AI generates upfront price estimates, calculates dynamic delivery fees, and automatically refunds any overpayment. Complete transparency at every step.
           </motion.p>
         </div>
 
@@ -335,11 +333,10 @@ const HowItWorksSection = () => {
               <Icon name="Shield" size={32} className="text-success" />
             </div>
             <h4 className="font-heading-bold text-foreground mb-2">
-              100% Verified
+              AI Invoice Generation
             </h4>
             <p className="text-text-secondary text-sm">
-              Every user is verified through College ID and Aadhaar for maximum
-              trust
+              AI generates upfront price estimates using real-time online data with transparent buffer calculations
             </p>
           </motion.div>
 
@@ -354,10 +351,10 @@ const HowItWorksSection = () => {
               <Icon name="Zap" size={32} className="text-primary" />
             </div>
             <h4 className="font-heading-bold text-foreground mb-2">
-              Instant Payments
+              Dynamic Delivery Fees
             </h4>
             <p className="text-text-secondary text-sm">
-              Get paid immediately via UPI upon task completion and approval
+              Delivery fees calculated by distance and grocery cost, with automatic proportional refunds if bill is less
             </p>
           </motion.div>
 
@@ -372,11 +369,10 @@ const HowItWorksSection = () => {
               <Icon name="Lock" size={32} className="text-secondary" />
             </div>
             <h4 className="font-heading-bold text-foreground mb-2">
-              Escrow Protected
+              Automatic Refunds
             </h4>
             <p className="text-text-secondary text-sm">
-              All payments are secured in escrow until successful task
-              completion
+              Escrow automatically refunds overpayments and adjusts delivery fees when actual bill is less than estimate
             </p>
           </motion.div>
         </div>

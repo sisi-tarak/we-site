@@ -24,14 +24,14 @@ const HeroSection = ({
       icon: "Users",
       description: "Earn flexible income",
       color: "text-success",
-      heroTitle: "Start Earning Today with 0% Commission",
+      heroTitle: "Earn 100% - Workers Never Pay Commission",
       heroSubtitle:
-        "Join 10,000+ students earning ₹10,000+/month with verified tasks and instant UPI payments",
+        "Join 10,000+ students earning ₹10,000+/month. Zero commission forever. Earn rewards, badges, and bonuses as you complete tasks.",
       ctaText: "Start Earning Now",
       benefits: [
-        "Zero commission first month",
+        "Zero commission forever",
         "Instant UPI payments",
-        "College ID verification",
+        "Worker rewards program",
       ],
     },
     {
@@ -41,14 +41,14 @@ const HeroSection = ({
       icon: "Building2",
       description: "Find verified talent",
       color: "text-secondary",
-      heroTitle: "Find Verified Local Talent Instantly",
+      heroTitle: "Flexible Subscription Plans for Task Posting",
       heroSubtitle:
-        "Connect with 100% verified students and professionals for reliable task completion",
-      ctaText: "Post Your First Task",
+        "Choose a plan that fits your needs. Post tasks with zero commission up to your limit. AI-powered invoicing and dynamic delivery fees.",
+      ctaText: "View Pricing Plans",
       benefits: [
-        "100% verified workers",
+        "Flexible subscription plans",
+        "AI invoice generation",
         "Escrow protection",
-        "Local talent pool",
       ],
     },
     {
@@ -58,14 +58,14 @@ const HeroSection = ({
       icon: "TrendingUp",
       description: "High-growth investment",
       color: "text-warning",
-      heroTitle: "Invest in Fastest Growing Gig Platform",
+      heroTitle: "Join Our Partnership Waitlist",
       heroSubtitle:
-        "Early investment opportunity with 15-25x return potential in India's ₹400Cr gig economy",
-      ctaText: "View Investment Details",
+        "Interested in partnering with WE Universal? Join our waitlist for future investment opportunities and business collaborations.",
+      ctaText: "Join Waitlist",
       benefits: [
-        "15-25x return potential",
-        "Growing market",
-        "Proven traction",
+        "Early access to opportunities",
+        "Market insights",
+        "Partnership options",
       ],
     },
   ];
@@ -75,36 +75,40 @@ const HeroSection = ({
       audience: "worker",
       title: "₹10,000+/month",
       subtitle: "Flexible Income",
-      highlight: "Zero Commission First Month",
+      highlight: "Zero Commission Forever",
       icon: "Wallet",
       gradient: "from-success to-success/70",
       features: [
         "Instant UPI payments",
-        "College ID verified",
-        "Flexible timing",
+        "Worker rewards program",
+        "Earn credits & bonuses",
       ],
     },
     {
       audience: "business",
       title: "Verified Talent",
       subtitle: "Zero Hassle",
-      highlight: "100% Verified Workers",
+      highlight: "Flexible Subscription Plans",
       icon: "Shield",
       gradient: "from-secondary to-secondary/70",
       features: [
+        "AI invoice generation",
+        "Dynamic delivery fees",
         "Escrow protection",
-        "Local professionals",
-        "Quality guarantee",
       ],
     },
     {
       audience: "investor",
       title: "15-25x Returns",
       subtitle: "Growth Potential",
-      highlight: "Early Investment Opportunity",
+      highlight: "Partnership Waitlist",
       icon: "TrendingUp",
       gradient: "from-warning to-warning/70",
-      features: ["₹400Cr market size", "Proven traction", "Scalable model"],
+      features: [
+        "Early access",
+        "Market insights",
+        "Partnership opportunities",
+      ],
     },
   ];
 
@@ -114,7 +118,11 @@ const HeroSection = ({
   const headlines = [
     currentAudience.heroTitle,
     `Join India's Most Trusted Gig Platform`,
-    `${currentAudience.benefits[0]} - Limited`,
+    currentAudience.id === "worker"
+      ? "Earn Rewards, Badges & Bonuses"
+      : currentAudience.id === "business"
+      ? "AI-Powered Invoicing & Dynamic Fees"
+      : "Join Our Growing Platform",
   ];
 
   useEffect(() => {

@@ -37,15 +37,15 @@ const CTASection = ({ selectedAudience }: CTASectionProps) => {
     worker: {
       title: "Join 10,000+ Students Earning Today",
       subtitle:
-        "Start your flexible income journey with zero commission for the first month",
+        "Start your flexible income journey with zero commission forever. Earn rewards, badges, and bonuses as you complete tasks.",
       primaryCTA: "Start Earning Now",
       secondaryCTA: "Watch Demo",
-      urgency: "Limited time: Zero commission first month",
+      urgency: "Zero commission forever - workers never pay",
       benefits: [
+        "Zero commission forever",
+        "Worker rewards program",
         "Instant UPI payments",
-        "College ID verification",
-        "Flexible working hours",
-        "₹10,000+ monthly potential",
+        "Earn credits & bonuses",
       ],
       formPlaceholder: {
         email: "Enter your college email",
@@ -53,17 +53,17 @@ const CTASection = ({ selectedAudience }: CTASectionProps) => {
       },
     },
     business: {
-      title: "Post Your First Task Free",
+      title: "Choose Your Subscription Plan",
       subtitle:
-        "Find verified local talent instantly and reduce your operational costs by 60%",
-      primaryCTA: "Post Task Now",
+        "Post tasks with zero commission up to your limit. AI-powered invoicing, dynamic delivery fees, and automatic refunds.",
+      primaryCTA: "View Pricing Plans",
       secondaryCTA: "Schedule Demo",
-      urgency: "Free task posting for new businesses",
+      urgency: "Flexible plans starting at ₹299/month",
       benefits: [
-        "100% verified workers",
-        "Escrow protection",
-        "Quality guarantee",
-        "60% cost reduction",
+        "Flexible subscription plans",
+        "AI invoice generation",
+        "Dynamic delivery fees",
+        "Automatic refunds",
       ],
       formPlaceholder: {
         email: "Enter your business email",
@@ -71,17 +71,17 @@ const CTASection = ({ selectedAudience }: CTASectionProps) => {
       },
     },
     investor: {
-      title: "Secure Early Investment Slot",
+      title: "Join Our Partnership Waitlist",
       subtitle:
-        "Join India's fastest-growing gig platform with 15-25x return potential",
-      primaryCTA: "Schedule Meeting",
-      secondaryCTA: "Download Pitch Deck",
-      urgency: "Limited slots available for Series A",
+        "Interested in partnering with WE Universal? Get early access to future investment and business collaboration opportunities.",
+      primaryCTA: "Join Waitlist",
+      secondaryCTA: "Learn More",
+      urgency: "Early access to partnership opportunities",
       benefits: [
-        "15-25x return potential",
-        "Proven traction",
-        "Growing market",
-        "Strategic partnership",
+        "Early access to opportunities",
+        "Market insights and metrics",
+        "Partnership options",
+        "Platform updates",
       ],
       formPlaceholder: {
         email: "Enter your investment email",

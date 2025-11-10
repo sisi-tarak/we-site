@@ -27,10 +27,38 @@ const ValuePropositionSection = ({ selectedAudience }: ValuePropositionSectionPr
     },
     {
       id: 'zero-commission',
-      title: 'Zero Commission First Month',
-      description: 'Start earning without any platform fees for your first month. Keep 100% of what you earn while building your reputation.',
+      title: 'Zero Commission Forever',
+      description: 'Workers never pay commission - keep 100% of your earnings forever. Earn rewards, badges, and bonuses as you complete tasks.',
       icon: 'Percent',
       audience: ['worker']
+    },
+    {
+      id: 'worker-rewards',
+      title: 'Worker Rewards Program',
+      description: 'Earn rewards for milestones: 25 tasks = free t-shirt, 50 tasks = hoodie, 100 tasks = verified badge + bonus. Rewards improve your visibility.',
+      icon: 'Award',
+      audience: ['worker']
+    },
+    {
+      id: 'ai-invoice',
+      title: 'AI-Powered Invoice Generation',
+      description: 'AI generates upfront price estimates using real-time online data. Transparent buffer system (12% tier-2, 18% metro) with automatic refunds.',
+      icon: 'FileText',
+      audience: ['business']
+    },
+    {
+      id: 'dynamic-fees',
+      title: 'Dynamic Delivery Fees',
+      description: 'Delivery fees calculated by distance and grocery cost. Automatic proportional refunds if actual bill is less than estimate. Complete transparency.',
+      icon: 'Package',
+      audience: ['business']
+    },
+    {
+      id: 'flexible-subscription',
+      title: 'Flexible Subscription Plans',
+      description: 'Choose a plan that fits your needs (₹299, ₹599, or ₹799/month). Unused limits carry over up to 3 months. Zero commission within limit.',
+      icon: 'CreditCard',
+      audience: ['business']
     },
     {
       id: 'quality-talent',
@@ -40,9 +68,9 @@ const ValuePropositionSection = ({ selectedAudience }: ValuePropositionSectionPr
       audience: ['business']
     },
     {
-      id: 'growth-potential',
-      title: '15-25x Return Potential',
-      description: 'Early investment opportunity in India\'s fastest-growing gig economy platform with proven traction and scalable model.',
+      id: 'partnership-opportunities',
+      title: 'Partnership Opportunities',
+      description: 'Join our waitlist for future investment and business partnership opportunities. Get early access to collaborations and market insights.',
       icon: 'TrendingUp',
       audience: ['investor']
     },

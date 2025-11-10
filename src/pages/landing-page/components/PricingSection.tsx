@@ -9,164 +9,138 @@ interface PricingSectionProps {
 }
 
 const PricingSection = ({ selectedAudience }: PricingSectionProps) => {
-  const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
 
   const pricingTiers: Record<AudienceType['id'], PricingTier[]> = {
     worker: [
       {
-        id: 'worker-starter',
+        id: 'worker-free',
         audience: 'worker',
-        name: 'First Month Free',
+        name: 'Free Forever',
         price: '₹0',
-        period: 'first month',
-        description: 'Start earning with zero commission for your first month',
+        period: '/month',
+        description: 'Workers never pay commission - earn 100% of task payments',
         features: [
-          'Zero commission on all earnings',
+          'Zero commission forever',
           'Instant UPI payments',
           'College ID verification',
-          'Basic task access',
-          'Community support',
+          'Access to all tasks',
+          'Earn credits & rewards',
+          'Referral bonuses (₹100 per referral)',
+          'Worker rewards program',
           'Mobile app access'
         ],
         highlighted: true,
         ctaText: 'Start Earning Free',
         badge: 'Most Popular'
-      },
-      {
-        id: 'worker-standard',
-        audience: 'worker',
-        name: 'Standard Plan',
-        price: billingCycle === 'monthly' ? '5%' : '4%',
-        period: 'commission',
-        description: 'Low commission rate after your free month',
-        features: [
-          'Only 5% commission (4% yearly)',
-          'Priority task notifications',
-          'Advanced skill matching',
-          'Performance analytics',
-          'Premium support',
-          'Referral bonuses'
-        ],
-        highlighted: false,
-        ctaText: 'Continue Earning'
       }
     ],
     business: [
       {
-        id: 'business-basic',
+        id: 'business-starter',
         audience: 'business',
-        name: 'Basic',
-        price: billingCycle === 'monthly' ? '₹999' : '₹9,999',
-        period: billingCycle === 'monthly' ? '/month' : '/year',
-        description: 'Perfect for small businesses and startups',
+        name: 'Starter',
+        price: '₹299',
+        period: '/month',
+        description: 'Perfect for occasional task posting',
         features: [
-          'Up to 10 active tasks',
-          'Basic worker verification',
-          'Standard support',
-          'Task management tools',
-          'Payment processing',
-          'Basic analytics'
+          '₹2,500 task limit per month',
+          'Unused limit carries over (up to 3 months)',
+          'Zero commission within limit',
+          '6% commission after limit exceeded',
+          'AI invoice generation',
+          'Dynamic delivery fee calculation',
+          'Escrow protection',
+          'Basic support'
         ],
         highlighted: false,
-        ctaText: 'Start Basic Plan'
+        ctaText: 'Start Starter Plan'
+      },
+      {
+        id: 'business-growth',
+        audience: 'business',
+        name: 'Growth',
+        price: '₹599',
+        period: '/month',
+        description: 'Ideal for regular task posting',
+        features: [
+          '₹5,000 task limit per month',
+          'Unused limit carries over (up to 3 months)',
+          'Zero commission within limit',
+          '6% commission after limit exceeded',
+          'Verified badge eligibility',
+          'AI invoice generation',
+          'Dynamic delivery fee calculation',
+          'Escrow protection',
+          'Priority support',
+          'Advanced analytics'
+        ],
+        highlighted: true,
+        ctaText: 'Choose Growth Plan',
+        badge: 'Recommended'
       },
       {
         id: 'business-pro',
         audience: 'business',
         name: 'Professional',
-        price: billingCycle === 'monthly' ? '₹2,999' : '₹29,999',
-        period: billingCycle === 'monthly' ? '/month' : '/year',
-        description: 'Advanced features for growing businesses',
+        price: '₹799',
+        period: '/month',
+        description: 'Best for high-volume task posting',
         features: [
-          'Unlimited active tasks',
-          'Premium worker verification',
+          '₹9,000 task limit per month',
+          'Unused limit carries over (up to 3 months)',
+          'Zero commission within limit',
+          '6% commission after limit exceeded',
+          'Verified badge eligibility',
+          'AI invoice generation',
+          'Dynamic delivery fee calculation',
+          'Escrow protection',
           'Priority support',
           'Advanced analytics',
-          'Custom workflows',
           'API access',
           'Dedicated account manager'
         ],
-        highlighted: true,
-        ctaText: 'Go Professional',
-        badge: 'Recommended'
-      },
-      {
-        id: 'business-enterprise',
-        audience: 'business',
-        name: 'Enterprise',
-        price: 'Custom',
-        period: 'pricing',
-        description: 'Tailored solutions for large organizations',
-        features: [
-          'Custom task limits',
-          'White-label solution',
-          'Enterprise security',
-          '24/7 dedicated support',
-          'Custom integrations',
-          'SLA guarantees',
-          'Training & onboarding'
-        ],
         highlighted: false,
-        ctaText: 'Contact Sales'
+        ctaText: 'Go Professional'
       }
     ],
     investor: [
       {
-        id: 'investor-seed',
+        id: 'investor-waitlist',
         audience: 'investor',
-        name: 'Seed Round',
-        price: '₹10L',
-        period: 'minimum',
-        description: 'Early-stage investment opportunity',
+        name: 'Partnership Waitlist',
+        price: 'Free',
+        period: 'to join',
+        description: 'Join our waitlist for future investment and partnership opportunities',
         features: [
-          '15-20x return potential',
-          'Equity participation',
-          'Board observer rights',
-          'Quarterly updates',
-          'Exit strategy planning',
-          'Due diligence access'
-        ],
-        highlighted: false,
-        ctaText: 'Express Interest'
-      },
-      {
-        id: 'investor-series-a',
-        audience: 'investor',
-        name: 'Series A',
-        price: '₹50L',
-        period: 'minimum',
-        description: 'Growth-stage investment with higher returns',
-        features: [
-          '20-25x return potential',
-          'Preferred equity',
-          'Board seat eligibility',
-          'Monthly updates',
-          'Strategic input rights',
-          'Priority exit options',
-          'Co-investment opportunities'
+          'Early access to investment rounds',
+          'Regular platform updates',
+          'Market insights and metrics',
+          'Partnership opportunities',
+          'Business collaboration options',
+          'Priority notifications'
         ],
         highlighted: true,
-        ctaText: 'Schedule Meeting',
-        badge: 'Best Returns'
+        ctaText: 'Join Waitlist',
+        badge: 'Coming Soon'
       },
       {
-        id: 'investor-strategic',
+        id: 'investor-business',
         audience: 'investor',
-        name: 'Strategic Partner',
-        price: '₹1Cr+',
-        period: 'investment',
-        description: 'Strategic partnership with operational involvement',
+        name: 'Business Partnership',
+        price: 'Custom',
+        period: 'pricing',
+        description: 'Explore custom business partnerships and collaborations',
         features: [
-          '25x+ return potential',
-          'Strategic partnership',
-          'Board representation',
-          'Weekly updates',
-          'Operational involvement',
-          'Market expansion rights',
-          'Technology licensing'
+          'Custom partnership terms',
+          'API integrations',
+          'White-label solutions',
+          'Bulk task management',
+          'Dedicated support',
+          'Co-marketing opportunities',
+          'Revenue sharing options'
         ],
         highlighted: false,
-        ctaText: 'Partner With Us'
+        ctaText: 'Contact Us'
       }
     ]
   };
@@ -205,9 +179,9 @@ const PricingSection = ({ selectedAudience }: PricingSectionProps) => {
             transition={{ delay: 0.1 }}
             className="text-3xl md:text-4xl lg:text-5xl font-heading-bold text-foreground mb-6"
           >
-            {selectedAudience === 'worker' && 'Start Free, Earn More'}
-            {selectedAudience === 'business' && 'Fair & Transparent Pricing'}
-            {selectedAudience === 'investor' && 'Investment Opportunities'}
+            {selectedAudience === 'worker' && 'Workers Never Pay Commission'}
+            {selectedAudience === 'business' && 'Flexible Subscription Plans'}
+            {selectedAudience === 'investor' && 'Partnership Opportunities'}
           </motion.h2>
 
           <motion.p
@@ -217,38 +191,11 @@ const PricingSection = ({ selectedAudience }: PricingSectionProps) => {
             transition={{ delay: 0.2 }}
             className="text-lg text-text-secondary max-w-2xl mx-auto"
           >
-            {selectedAudience === 'worker' && 'Begin your earning journey with zero commission for the first month, then enjoy the lowest rates in the industry.'}
-            {selectedAudience === 'business' && 'Choose the perfect plan for your business needs with transparent pricing and no hidden fees.'}
-            {selectedAudience === 'investor' && 'Join our growth story with attractive investment packages and proven return potential.'}
+            {selectedAudience === 'worker' && 'Earn 100% of task payments with zero commission forever. Access worker rewards program and referral bonuses.'}
+            {selectedAudience === 'business' && 'Choose a subscription plan that fits your needs. Unused limits carry over, and you only pay commission after exceeding your monthly limit.'}
+            {selectedAudience === 'investor' && 'Interested in partnering with us? Join our waitlist to learn about future investment and business partnership opportunities.'}
           </motion.p>
         </div>
-
-        {/* Billing Toggle (for business only) */}
-        {selectedAudience === 'business' && (
-          <div className="flex justify-center mb-12">
-            <div className="bg-card border border-border rounded-2xl p-2 flex items-center space-x-2">
-              <button
-                onClick={() => setBillingCycle('monthly')}
-                className={`px-6 py-3 rounded-xl font-body-medium transition-smooth ${
-                  billingCycle === 'monthly' ?'bg-primary text-primary-foreground shadow-sm' :'text-text-secondary hover:text-foreground'
-                }`}
-              >
-                Monthly
-              </button>
-              <button
-                onClick={() => setBillingCycle('yearly')}
-                className={`px-6 py-3 rounded-xl font-body-medium transition-smooth relative ${
-                  billingCycle === 'yearly' ?'bg-primary text-primary-foreground shadow-sm' :'text-text-secondary hover:text-foreground'
-                }`}
-              >
-                Yearly
-                <span className="absolute -top-2 -right-2 bg-success text-white text-xs px-2 py-1 rounded-full">
-                  Save 20%
-                </span>
-              </button>
-            </div>
-          </div>
-        )}
 
         {/* Pricing Cards */}
         <div className={`grid gap-8 max-w-6xl mx-auto ${
@@ -303,17 +250,23 @@ const PricingSection = ({ selectedAudience }: PricingSectionProps) => {
                     </span>
                   </div>
                   
-                  {/* Special offer for workers */}
-                  {selectedAudience === 'worker' && tier.id === 'worker-starter' && (
-                    <div className="mt-2 text-sm text-success font-body-medium">
-                      Limited time offer - Start today!
+                  {/* Limit info for business plans */}
+                  {selectedAudience === 'business' && tier.price !== 'Custom' && (
+                    <div className="mt-3 p-3 bg-muted/50 rounded-lg">
+                      <div className="text-xs text-text-secondary mb-1">Monthly Task Limit</div>
+                      <div className="text-lg font-heading-bold text-primary">
+                        {tier.id === 'business-starter' && '₹2,500'}
+                        {tier.id === 'business-growth' && '₹5,000'}
+                        {tier.id === 'business-pro' && '₹9,000'}
+                      </div>
+                      <div className="text-xs text-success mt-1">✓ Unused limit carries over up to 3 months</div>
                     </div>
                   )}
                   
-                  {/* Savings indicator for yearly billing */}
-                  {selectedAudience === 'business' && billingCycle === 'yearly' && tier.price !== 'Custom' && (
-                    <div className="mt-2 text-sm text-success font-body-medium">
-                      Save ₹{parseInt(tier.price.replace(/[₹,]/g, '')) * 2.4 - parseInt(tier.price.replace(/[₹,]/g, ''))} per year
+                  {/* Commission info for business */}
+                  {selectedAudience === 'business' && (
+                    <div className="mt-2 text-sm text-text-secondary">
+                      {tier.price === 'Custom' ? 'Custom pricing' : '6% commission after limit'}
                     </div>
                   )}
                 </div>
@@ -374,14 +327,16 @@ const PricingSection = ({ selectedAudience }: PricingSectionProps) => {
               </Button>
 
               {/* Additional info for investors */}
-              {selectedAudience === 'investor' && (
+              {selectedAudience === 'investor' && tier.id === 'investor-waitlist' && (
                 <div className="mt-6 pt-6 border-t border-border">
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="text-text-secondary">Expected Timeline:</span>
-                    <span className="text-foreground font-body-medium">
-                      {tier.id === 'investor-seed' ? '2-3 years' : 
-                       tier.id === 'investor-series-a' ? '3-5 years' : '5-7 years'}
-                    </span>
+                  <div className="text-sm text-text-secondary">
+                    <div className="font-body-medium text-foreground mb-2">What you'll get:</div>
+                    <ul className="space-y-1 ml-4">
+                      <li>• Updates on platform growth and metrics</li>
+                      <li>• Early notification of investment opportunities</li>
+                      <li>• Access to market research and insights</li>
+                      <li>• Priority consideration for partnerships</li>
+                    </ul>
                   </div>
                 </div>
               )}
@@ -399,25 +354,25 @@ const PricingSection = ({ selectedAudience }: PricingSectionProps) => {
         >
           <div className="bg-card border border-border rounded-2xl p-8 max-w-4xl mx-auto">
             <h4 className="font-heading-bold text-foreground mb-4">
-              {selectedAudience === 'worker' && 'Why Choose WE Universal?'}
-              {selectedAudience === 'business' && 'Compare with Competitors'}
-              {selectedAudience === 'investor' && 'Investment Advantages'}
+              {selectedAudience === 'worker' && 'Why Workers Love WE Universal'}
+              {selectedAudience === 'business' && 'Key Benefits of Our Pricing Model'}
+              {selectedAudience === 'investor' && 'Partnership Benefits'}
             </h4>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
               <div className="text-center">
                 <div className="w-12 h-12 bg-success/10 rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <Icon name="Shield" size={24} className="text-success" />
+                  <Icon name="Percent" size={24} className="text-success" />
                 </div>
                 <div className="font-body-medium text-foreground mb-1">
-                  {selectedAudience === 'worker' && 'Lowest Commission'}
-                  {selectedAudience === 'business' && 'Best Value'}
-                  {selectedAudience === 'investor' && 'Proven Traction'}
+                  {selectedAudience === 'worker' && 'Zero Commission Forever'}
+                  {selectedAudience === 'business' && 'Flexible Limits'}
+                  {selectedAudience === 'investor' && 'Transparent Model'}
                 </div>
                 <div className="text-text-secondary">
-                  {selectedAudience === 'worker' && 'Industry-leading 5% vs 20%+ others'}
-                  {selectedAudience === 'business' && '50% less than competitors'}
-                  {selectedAudience === 'investor' && '₹50L+ paid, 10K+ tasks completed'}
+                  {selectedAudience === 'worker' && 'Keep 100% of your earnings - no commission, ever'}
+                  {selectedAudience === 'business' && 'Unused limits carry over up to 3 months'}
+                  {selectedAudience === 'investor' && 'Clear pricing structure and growth metrics'}
                 </div>
               </div>
 
@@ -426,33 +381,49 @@ const PricingSection = ({ selectedAudience }: PricingSectionProps) => {
                   <Icon name="Zap" size={24} className="text-primary" />
                 </div>
                 <div className="font-body-medium text-foreground mb-1">
-                  {selectedAudience === 'worker' && 'Instant Payments'}
-                  {selectedAudience === 'business' && 'Faster Hiring'}
-                  {selectedAudience === 'investor' && 'Market Leadership'}
+                  {selectedAudience === 'worker' && 'Instant UPI Payments'}
+                  {selectedAudience === 'business' && 'AI-Powered Invoicing'}
+                  {selectedAudience === 'investor' && 'Tech-Driven Platform'}
                 </div>
                 <div className="text-text-secondary">
-                  {selectedAudience === 'worker' && 'UPI payments vs 7-day delays'}
-                  {selectedAudience === 'business' && '2x faster than traditional platforms'}
-                  {selectedAudience === 'investor' && 'First-mover advantage in verified gig economy'}
+                  {selectedAudience === 'worker' && 'Get paid instantly after task completion'}
+                  {selectedAudience === 'business' && 'AI generates accurate upfront price estimates'}
+                  {selectedAudience === 'investor' && 'Advanced technology and automation'}
                 </div>
               </div>
 
               <div className="text-center">
                 <div className="w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <Icon name="Users" size={24} className="text-secondary" />
+                  <Icon name="Award" size={24} className="text-secondary" />
                 </div>
                 <div className="font-body-medium text-foreground mb-1">
-                  {selectedAudience === 'worker' && '100% Verified'}
-                  {selectedAudience === 'business' && 'Quality Guarantee'}
-                  {selectedAudience === 'investor' && 'Scalable Model'}
+                  {selectedAudience === 'worker' && 'Rewards Program'}
+                  {selectedAudience === 'business' && 'Escrow Protection'}
+                  {selectedAudience === 'investor' && 'Growing Market'}
                 </div>
                 <div className="text-text-secondary">
-                  {selectedAudience === 'worker' && 'College ID + Aadhaar verification'}
-                  {selectedAudience === 'business' && 'Pre-screened talent pool'}
-                  {selectedAudience === 'investor' && 'Expanding to 50+ cities by 2025'}
+                  {selectedAudience === 'worker' && 'Earn badges, credits, and bonuses for milestones'}
+                  {selectedAudience === 'business' && 'Secure escrow with automatic refunds'}
+                  {selectedAudience === 'investor' && 'Expanding gig economy market opportunity'}
                 </div>
               </div>
             </div>
+            
+            {/* Additional info for business */}
+            {selectedAudience === 'business' && (
+              <div className="mt-6 p-4 bg-primary/5 rounded-lg border border-primary/20">
+                <div className="text-sm text-foreground font-body-medium mb-2">
+                  💡 How it works:
+                </div>
+                <ul className="text-sm text-text-secondary space-y-1 ml-4">
+                  <li>• Subscribe to a plan (₹299, ₹599, or ₹799/month)</li>
+                  <li>• Post tasks up to your monthly limit with zero commission</li>
+                  <li>• Unused limit carries over to next month (up to 3 months)</li>
+                  <li>• After exceeding limit, pay only 6% commission per task</li>
+                  <li>• Non-subscribers pay 6% commission on all tasks</li>
+                </ul>
+              </div>
+            )}
           </div>
         </motion.div>
 
@@ -487,5 +458,7 @@ const PricingSection = ({ selectedAudience }: PricingSectionProps) => {
     </section>
   );
 };
+
+export default PricingSection;
 
 export default PricingSection;
