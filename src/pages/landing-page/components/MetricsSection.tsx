@@ -185,7 +185,8 @@ const MetricsSection = () => {
             transition={{ delay: 0.2 }}
             className="text-lg text-text-secondary max-w-2xl mx-auto"
           >
-            These are our projected goals and targets for the first year after launch. Join us in building India's most trusted gig platform.
+            These are our projected goals and targets for the first year after
+            launch. Join us in building India's most trusted gig platform.
           </motion.p>
         </div>
 
@@ -228,7 +229,7 @@ const MetricsSection = () => {
                 {/* Animated Value */}
                 <div className="mb-4">
                   <motion.div
-                    className="text-4xl md:text-5xl font-heading-extra-bold text-foreground mb-2"
+                    className="text-3xl md:text-4xl font-heading-extra-bold text-foreground mb-2"
                     initial={{ scale: 0.5 }}
                     animate={{ scale: 1 }}
                     transition={{
@@ -269,7 +270,7 @@ const MetricsSection = () => {
                 </div>
 
                 {/* Label and Description */}
-                <h3 className="text-xl font-heading-bold text-foreground mb-2">
+                <h3 className="text-lg font-heading-bold text-foreground mb-2">
                   {metric.label}
                 </h3>
                 <p className="text-text-secondary text-sm">
