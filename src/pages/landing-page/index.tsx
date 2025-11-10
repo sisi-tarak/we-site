@@ -18,6 +18,8 @@ import PricingSection from "./components/PricingSection";
 import CTASection from "./components/CTASection";
 import FAQSection from "./components/FAQSection";
 
+import logoImg from "../../components/assets/3.png";
+
 import { AudienceType } from "./types";
 
 const LandingPage = () => {
@@ -116,7 +118,8 @@ const LandingPage = () => {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center mx-auto mb-4 animate-pulse">
+          <img src={logoImg} alt="WE Universal Logo" width={150} height={150} />
+          {/* <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center mx-auto mb-4 animate-pulse">
             <span className="text-white font-heading-bold text-xl">WE</span>
           </div>
           <div className="text-lg font-heading-bold text-foreground mb-2">
@@ -124,7 +127,7 @@ const LandingPage = () => {
           </div>
           <div className="text-sm text-text-secondary">
             Preparing your personalized experience...
-          </div>
+          </div> */}
         </div>
       </div>
     );
