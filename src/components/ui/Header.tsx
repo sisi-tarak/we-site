@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Icon from "../AppIcon";
 import Button from "./Button";
+import logoImg from "../assets/2.png";
 
 interface HeaderProps {
   className?: string;
@@ -22,6 +23,7 @@ const Header = ({ className = "" }: HeaderProps) => {
     "worker" | "business" | "investor"
   >("worker");
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isBannerVisible, setIsBannerVisible] = useState(true);
   const headerRef = React.useRef<HTMLElement>(null);
   const menuRef = React.useRef<HTMLDivElement>(null);
   const audienceChangeTimeRef = React.useRef<number>(0);
@@ -280,16 +282,45 @@ const Header = ({ className = "" }: HeaderProps) => {
     window.dispatchEvent(event);
   };
 
+  // Track banner visibility for header positioning
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition =
+        window.pageYOffset || document.documentElement.scrollTop;
+      const windowHeight = window.innerHeight;
+
+      // Check if banner is visible (banner hides after 100vh scroll)
+      setIsBannerVisible(scrollPosition < windowHeight);
+    };
+
+    // Initial check
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <header
       ref={headerRef}
-      className={`sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border ${className}`}
+      className={`sticky ${
+        isBannerVisible ? "top-[48px]" : "top-0"
+      } z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border transition-all duration-300 ${className}`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <button
+            <img
+              src={logoImg}
+              alt="WE Universal Logo"
+              width={100}
+              height={100}
+            />
+            {/*<button
               onClick={(e) => {
                 e.preventDefault();
                 setIsMenuOpen(false);
@@ -309,7 +340,7 @@ const Header = ({ className = "" }: HeaderProps) => {
               <span className="font-heading-bold text-xl text-foreground hidden sm:inline-block">
                 WE Universal
               </span>
-            </button>
+            </button> */}
           </div>
 
           {/* Desktop Navigation */}

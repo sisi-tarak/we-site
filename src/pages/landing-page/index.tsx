@@ -4,6 +4,8 @@ import Header from "../../components/ui/Header";
 import ScrollProgressIndicator from "../../components/ui/ScrollProgressIndicator";
 import AudienceSelectorPersistence from "../../components/ui/AudienceSelectorPersistence";
 import ConversionTrackingNav from "components/ui/ConversionTrackingNav";
+import PreLaunchBanner from "../../components/ui/PreLaunchBanner";
+import Footer from "../../components/ui/Footer";
 
 // Import all components
 import HeroSection from "./components/HeroSection";
@@ -175,6 +177,7 @@ const LandingPage = () => {
       </Helmet>
 
       {/* Global Components */}
+      <PreLaunchBanner />
       <Header />
       <ScrollProgressIndicator />
       <AudienceSelectorPersistence onAudienceChange={handleAudienceChange} />
@@ -212,6 +215,9 @@ const LandingPage = () => {
         {/* FAQ Section - AI-powered search with Hindi toggle */}
         <FAQSection selectedAudience={selectedAudience} />
       </main>
+
+      {/* Footer with Pre-Launch Disclaimer */}
+      <Footer />
 
       {/* Floating Action Button for Mobile */}
       <div className="fixed bottom-6 right-6 z-50 md:hidden">

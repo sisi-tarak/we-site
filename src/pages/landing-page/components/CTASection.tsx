@@ -462,38 +462,43 @@ const CTASection = ({ selectedAudience }: CTASectionProps) => {
             </Button>
           </motion.div>
 
-          {/* Trust Indicators */}
+          {/* Trust Indicators - Projected Goals */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.8 }}
-            className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 text-center"
+            className="mt-16"
           >
-            <div>
-              <div className="text-3xl font-heading-bold text-white mb-2">
-                10K+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center mb-4">
+              <div>
+                <div className="text-3xl font-heading-bold text-white mb-2">
+                  10K+
+                </div>
+                <div className="text-white/80 text-sm">Target: Tasks</div>
               </div>
-              <div className="text-white/80 text-sm">Active Users</div>
-            </div>
-            <div>
-              <div className="text-3xl font-heading-bold text-white mb-2">
-                ₹50L+
+              <div>
+                <div className="text-3xl font-heading-bold text-white mb-2">
+                  ₹50L+
+                </div>
+                <div className="text-white/80 text-sm">Target: Paid Out</div>
               </div>
-              <div className="text-white/80 text-sm">Paid Out</div>
-            </div>
-            <div>
-              <div className="text-3xl font-heading-bold text-white mb-2">
-                4.8/5
+              <div>
+                <div className="text-3xl font-heading-bold text-white mb-2">
+                  4.8/5
+                </div>
+                <div className="text-white/80 text-sm">Target Rating</div>
               </div>
-              <div className="text-white/80 text-sm">Rating</div>
-            </div>
-            <div>
-              <div className="text-3xl font-heading-bold text-white mb-2">
-                100%
+              <div>
+                <div className="text-3xl font-heading-bold text-white mb-2">
+                  100%
+                </div>
+                <div className="text-white/80 text-sm">Target: Verified</div>
               </div>
-              <div className="text-white/80 text-sm">Verified</div>
             </div>
+            <p className="text-xs text-white/60 italic text-center">
+              * Projected goals for Year 1
+            </p>
           </motion.div>
         </div>
       </div>

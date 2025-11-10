@@ -275,29 +275,34 @@ const HeroSection = ({
               )}
             </motion.div>
 
-            {/* Trust Indicators */}
+            {/* Trust Indicators - Projected Goals */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
-              className="mt-8 flex flex-wrap justify-center lg:justify-start items-center gap-6 text-sm text-text-secondary"
+              className="mt-8"
             >
-              <div className="flex items-center space-x-2">
-                <Icon name="Users" size={16} className="text-success" />
-                <span>10,000+ Active Users</span>
+              <div className="flex flex-wrap justify-center lg:justify-start items-center gap-6 text-sm text-text-secondary mb-2">
+                <div className="flex items-center space-x-2">
+                  <Icon name="Users" size={16} className="text-success" />
+                  <span>Target: 10,000+ Tasks</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Icon
+                    name="Star"
+                    size={16}
+                    className="text-warning fill-current"
+                  />
+                  <span>Target: 4.8/5 Rating</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Icon name="Shield" size={16} className="text-secondary" />
+                  <span>Target: 100% Verified</span>
+                </div>
               </div>
-              <div className="flex items-center space-x-2">
-                <Icon
-                  name="Star"
-                  size={16}
-                  className="text-warning fill-current"
-                />
-                <span>4.8/5 Rating</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Icon name="Shield" size={16} className="text-secondary" />
-                <span>100% Verified</span>
-              </div>
+              <p className="text-xs text-text-secondary italic">
+                * Projected goals for Year 1
+              </p>
             </motion.div>
           </div>
 

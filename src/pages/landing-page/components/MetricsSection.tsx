@@ -12,52 +12,36 @@ const MetricsSection = () => {
 
   const metrics: MetricData[] = [
     {
-      id: "payout",
-      label: "Total Paid Out",
-      value: "₹50,00,000",
-      icon: "Wallet",
-      description: "Paid to verified workers",
-      color: "text-success",
-    },
-    {
       id: "tasks",
-      label: "Completed Tasks",
+      label: "🎯 Tasks Completed",
       value: "10,000",
       icon: "CheckCircle",
-      description: "Successfully completed",
+      description: "Target by end of Year 1",
       color: "text-primary",
     },
     {
+      id: "payout",
+      label: "💰 Paid to Workers",
+      value: "₹50,00,000",
+      icon: "Wallet",
+      description: "Projected payout target",
+      color: "text-success",
+    },
+    {
       id: "rating",
-      label: "Average Rating",
+      label: "⭐ Target Rating",
       value: "4.8",
       icon: "Star",
-      description: "Out of 5 stars",
+      description: "Goal: 4.8/5 average",
       color: "text-warning",
     },
     {
       id: "users",
-      label: "Active Users",
-      value: "15,000",
-      icon: "Users",
-      description: "Verified participants",
+      label: "✓ Verified Community",
+      value: "100%",
+      icon: "Shield",
+      description: "100% verified users target",
       color: "text-secondary",
-    },
-    {
-      id: "businesses",
-      label: "Partner Businesses",
-      value: "500",
-      icon: "Building2",
-      description: "Registered companies",
-      color: "text-accent",
-    },
-    {
-      id: "growth",
-      label: "Monthly Growth",
-      value: "25%",
-      icon: "TrendingUp",
-      description: "User base expansion",
-      color: "text-success",
     },
   ];
 
@@ -96,18 +80,16 @@ const MetricsSection = () => {
   // Format animated values back to display format
   const formatValue = (metric: MetricData, animatedValue: number): string => {
     if (metric.id === "payout") {
-      return `₹${(animatedValue / 100000).toFixed(0)},${String(
-        animatedValue % 100000
-      ).padStart(5, "0")}`;
+      return `₹${(animatedValue / 100000).toFixed(0)}L+`;
     }
-    if (metric.id === "tasks" || metric.id === "users") {
-      return animatedValue.toLocaleString();
+    if (metric.id === "tasks") {
+      return `${animatedValue.toLocaleString()}+`;
     }
     if (metric.id === "rating") {
-      return (animatedValue / 10).toFixed(1);
+      return `${(animatedValue / 10).toFixed(1)}/5`;
     }
-    if (metric.id === "growth") {
-      return `${animatedValue}%`;
+    if (metric.id === "users") {
+      return "100%";
     }
     return animatedValue.toString();
   };
@@ -115,18 +97,28 @@ const MetricsSection = () => {
   useEffect(() => {
     if (isInView) {
       metrics.forEach((metric, index) => {
-        const numericValue = getNumericValue(metric.value);
-        const adjustedValue =
-          metric.id === "rating" ? numericValue * 10 : numericValue;
-
-        setTimeout(() => {
-          animateValue(0, adjustedValue, 2000, (value) => {
+        if (metric.id === "users") {
+          // For 100%, set directly without animation
+          setTimeout(() => {
             setAnimatedValues((prev) => ({
               ...prev,
-              [metric.id]: value,
+              [metric.id]: 100,
             }));
-          });
-        }, index * 200);
+          }, index * 200);
+        } else {
+          const numericValue = getNumericValue(metric.value);
+          const adjustedValue =
+            metric.id === "rating" ? numericValue * 10 : numericValue;
+
+          setTimeout(() => {
+            animateValue(0, adjustedValue, 2000, (value) => {
+              setAnimatedValues((prev) => ({
+                ...prev,
+                [metric.id]: value,
+              }));
+            });
+          }, index * 200);
+        }
       });
     }
   }, [isInView]);
@@ -171,8 +163,8 @@ const MetricsSection = () => {
             viewport={{ once: true }}
             className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-body-medium mb-6"
           >
-            <Icon name="BarChart3" size={16} />
-            <span>Platform Metrics</span>
+            <Icon name="Target" size={16} />
+            <span>Our Mission by End of Year 1</span>
           </motion.div>
 
           <motion.h2
@@ -182,8 +174,8 @@ const MetricsSection = () => {
             transition={{ delay: 0.1 }}
             className="text-3xl md:text-4xl lg:text-5xl font-heading-bold text-foreground mb-6"
           >
-            Numbers That
-            <span className="text-primary"> Speak Volumes</span>
+            📊 Our Mission by End of
+            <span className="text-primary"> Year 1</span>
           </motion.h2>
 
           <motion.p
@@ -193,13 +185,12 @@ const MetricsSection = () => {
             transition={{ delay: 0.2 }}
             className="text-lg text-text-secondary max-w-2xl mx-auto"
           >
-            Real metrics from our growing community of workers, businesses, and
-            investors building India's most trusted gig platform.
+            These are our projected goals and targets for the first year after launch. Join us in building India's most trusted gig platform.
           </motion.p>
         </div>
 
         {/* Metrics Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
           {metrics.map((metric, index) => (
             <motion.div
               key={metric.id}
@@ -285,30 +276,18 @@ const MetricsSection = () => {
                   {metric.description}
                 </p>
 
-                {/* Progress indicator for growth metrics */}
-                {(metric.id === "growth" || metric.id === "rating") && (
+                {/* Progress indicator for rating */}
+                {metric.id === "rating" && (
                   <div className="mt-4">
                     <div className="w-full bg-border rounded-full h-2">
                       <motion.div
-                        className={`h-2 rounded-full ${
-                          metric.color === "text-success"
-                            ? "bg-success"
-                            : metric.color === "text-warning"
-                            ? "bg-warning"
-                            : "bg-primary"
-                        }`}
+                        className="h-2 rounded-full bg-warning"
                         initial={{ width: "0%" }}
                         animate={{
-                          width:
-                            metric.id === "growth"
-                              ? `${Math.min(
-                                  (animatedValues[metric.id] || 0) * 4,
-                                  100
-                                )}%`
-                              : `${Math.min(
-                                  ((animatedValues[metric.id] || 0) / 10) * 20,
-                                  100
-                                )}%`,
+                          width: `${Math.min(
+                            ((animatedValues[metric.id] || 0) / 10) * 20,
+                            100
+                          )}%`,
                         }}
                         transition={{ delay: index * 0.1 + 1, duration: 1 }}
                       />
@@ -320,7 +299,7 @@ const MetricsSection = () => {
           ))}
         </div>
 
-        {/* Real-time Update Indicator */}
+        {/* Projection Notice */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -328,13 +307,9 @@ const MetricsSection = () => {
           transition={{ delay: 0.8 }}
           className="text-center mt-12"
         >
-          <div className="inline-flex items-center space-x-2 bg-success/10 text-success px-4 py-2 rounded-full text-sm font-body-medium">
-            <motion.div
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="w-2 h-2 bg-success rounded-full"
-            />
-            <span>Live metrics updated in real-time</span>
+          <div className="inline-flex items-center space-x-2 bg-warning/10 text-warning px-4 py-2 rounded-full text-sm font-body-medium">
+            <Icon name="Info" size={16} />
+            <span>These are projected goals, not current data</span>
           </div>
         </motion.div>
 

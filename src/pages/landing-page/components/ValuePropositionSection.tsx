@@ -217,7 +217,7 @@ const ValuePropositionSection = ({ selectedAudience }: ValuePropositionSectionPr
                 ))}
               </div>
 
-              {/* Key Stats */}
+              {/* Key Stats - Projected Goals */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -226,7 +226,7 @@ const ValuePropositionSection = ({ selectedAudience }: ValuePropositionSectionPr
                   className="text-center"
                 >
                   <div className="text-2xl md:text-3xl font-heading-bold text-primary mb-2">₹50L+</div>
-                  <div className="text-sm text-text-secondary">Paid to Workers</div>
+                  <div className="text-sm text-text-secondary">Target: Paid to Workers</div>
                 </motion.div>
 
                 <motion.div
@@ -237,7 +237,7 @@ const ValuePropositionSection = ({ selectedAudience }: ValuePropositionSectionPr
                   className="text-center"
                 >
                   <div className="text-2xl md:text-3xl font-heading-bold text-secondary mb-2">10,000+</div>
-                  <div className="text-sm text-text-secondary">Completed Tasks</div>
+                  <div className="text-sm text-text-secondary">Target: Completed Tasks</div>
                 </motion.div>
 
                 <motion.div
@@ -248,7 +248,7 @@ const ValuePropositionSection = ({ selectedAudience }: ValuePropositionSectionPr
                   className="text-center"
                 >
                   <div className="text-2xl md:text-3xl font-heading-bold text-success mb-2">4.8/5</div>
-                  <div className="text-sm text-text-secondary">Average Rating</div>
+                  <div className="text-sm text-text-secondary">Target Rating</div>
                 </motion.div>
 
                 <motion.div
@@ -259,8 +259,13 @@ const ValuePropositionSection = ({ selectedAudience }: ValuePropositionSectionPr
                   className="text-center"
                 >
                   <div className="text-2xl md:text-3xl font-heading-bold text-warning mb-2">100%</div>
-                  <div className="text-sm text-text-secondary">Verified Users</div>
+                  <div className="text-sm text-text-secondary">Target: Verified Users</div>
                 </motion.div>
+              </div>
+              <div className="mt-4 text-center">
+                <p className="text-xs text-text-secondary italic">
+                  * Projected goals for Year 1
+                </p>
               </div>
             </div>
           </div>

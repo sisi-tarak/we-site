@@ -86,7 +86,7 @@ const TestimonialsSection = ({ selectedAudience }: TestimonialsSectionProps) => 
     name: 'Vikram Singh',
     role: 'Angel Investor & Former VP, Flipkart',
     audience: 'investor',
-    content: `WE Universal represents the future of India's gig economy. The community verification model and focus on trust sets them apart. With ₹50L+ already paid to workers and 10,000+ completed tasks, the traction is impressive. Excited to be part of this journey with 20x+ return potential.`,
+    content: `WE Universal represents the future of India's gig economy. The community verification model and focus on trust sets them apart. With projected goals of ₹50L+ paid to workers and 10,000+ completed tasks in Year 1, the potential is impressive. Excited to be part of this journey.`,
     rating: 5,
     returns: '20x+ projected returns',
     avatar: "https://img.rocket.new/generatedImages/rocket_gen_img_191605a11-1762274216267.png",
@@ -314,50 +314,55 @@ const TestimonialsSection = ({ selectedAudience }: TestimonialsSectionProps) => 
           </div>
         </div>
 
-        {/* Additional Stats */}
-        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center">
+        {/* Additional Stats - Projected Goals */}
+        <div className="mt-16">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto mb-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center"
+            >
+              <div className="text-3xl font-heading-bold text-primary mb-2">4.8/5</div>
+              <div className="text-sm text-text-secondary">Target Rating</div>
+            </motion.div>
 
-            <div className="text-3xl font-heading-bold text-primary mb-2">4.8/5</div>
-            <div className="text-sm text-text-secondary">Average Rating</div>
-          </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-center"
+            >
+              <div className="text-3xl font-heading-bold text-success mb-2">10K+</div>
+              <div className="text-sm text-text-secondary">Target: Tasks</div>
+            </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="text-center"
+            >
+              <div className="text-3xl font-heading-bold text-secondary mb-2">₹50L+</div>
+              <div className="text-sm text-text-secondary">Target: Paid Out</div>
+            </motion.div>
 
-            <div className="text-3xl font-heading-bold text-success mb-2">10K+</div>
-            <div className="text-sm text-text-secondary">Happy Users</div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-center">
-
-            <div className="text-3xl font-heading-bold text-secondary mb-2">₹50L+</div>
-            <div className="text-sm text-text-secondary">Paid Out</div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-            className="text-center">
-
-            <div className="text-3xl font-heading-bold text-warning mb-2">100%</div>
-            <div className="text-sm text-text-secondary">Verified</div>
-          </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="text-center"
+            >
+              <div className="text-3xl font-heading-bold text-warning mb-2">100%</div>
+              <div className="text-sm text-text-secondary">Target: Verified</div>
+            </motion.div>
+          </div>
+          <p className="text-xs text-text-secondary italic text-center">
+            * Projected goals for Year 1
+          </p>
         </div>
       </div>
     </section>);
