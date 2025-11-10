@@ -159,11 +159,11 @@ const PricingSection = ({ selectedAudience }: PricingSectionProps) => {
         <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-br from-accent/5 to-transparent rounded-full blur-3xl" />
 
         {/* Price symbols floating */}
-        <div className="absolute top-32 right-32 text-4xl text-primary/10 font-heading-bold animate-bounce">
+        <div className="absolute top-32 right-32 text-4xl text-primary/10 font-heading-bold animate-bounce hidden sm:block">
           ₹
         </div>
         <div
-          className="absolute bottom-40 left-16 text-3xl text-accent/10 font-heading-bold animate-bounce"
+          className="absolute bottom-40 left-16 text-3xl text-accent/10 font-heading-bold animate-bounce hidden sm:block"
           style={{ animationDelay: "1s" }}
         >
           %

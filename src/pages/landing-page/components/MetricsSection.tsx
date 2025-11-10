@@ -137,17 +137,17 @@ const MetricsSection = () => {
         />
 
         {/* Floating Numbers */}
-        <div className="absolute top-20 right-20 text-6xl font-heading-bold text-primary/5 animate-bounce">
+        <div className="absolute top-20 right-20 text-6xl font-heading-bold text-primary/5 animate-bounce hidden sm:block">
           ₹
         </div>
         <div
-          className="absolute bottom-32 left-16 text-4xl font-heading-bold text-accent/5 animate-bounce"
+          className="absolute bottom-32 left-16 text-4xl font-heading-bold text-accent/5 animate-bounce hidden sm:block"
           style={{ animationDelay: "0.5s" }}
         >
           %
         </div>
         <div
-          className="absolute top-1/2 left-1/4 text-5xl font-heading-bold text-secondary/5 animate-bounce"
+          className="absolute top-1/2 left-1/4 text-5xl font-heading-bold text-secondary/5 animate-bounce hidden sm:block"
           style={{ animationDelay: "1.5s" }}
         >
           ★

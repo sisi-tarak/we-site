@@ -227,11 +227,11 @@ const FAQSection = ({ selectedAudience }: FAQSectionProps) => {
         <div className="absolute bottom-20 right-20 w-60 h-60 bg-accent/5 rounded-full blur-3xl" />
 
         {/* Question marks floating */}
-        <div className="absolute top-32 right-32 text-6xl text-primary/5 font-heading-bold animate-bounce">
+        <div className="absolute top-32 right-32 text-6xl text-primary/5 font-heading-bold animate-bounce hidden sm:block">
           ?
         </div>
         <div
-          className="absolute bottom-40 left-16 text-4xl text-accent/5 font-heading-bold animate-bounce"
+          className="absolute bottom-40 left-16 text-4xl text-accent/5 font-heading-bold animate-bounce hidden sm:block"
           style={{ animationDelay: "1s" }}
         >
           ?
