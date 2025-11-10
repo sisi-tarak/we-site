@@ -257,7 +257,7 @@ const JourneySection = ({ selectedAudience }: JourneySectionProps) => {
                   >
                     {/* Step Circle */}
                     <div
-                      className={`w-16 h-16 rounded-full border-4 flex items-center justify-center transition-all duration-300 ${
+                      className={`w-16 h-16 rounded-full border-4 flex items-center mt-3 mb-5 justify-center transition-all duration-300 ${
                         index <= activeStep
                           ? "bg-primary border-primary text-white shadow-lg scale-110"
                           : "bg-card border-border text-text-secondary group-hover:border-accent group-hover:scale-105"
@@ -445,7 +445,8 @@ const JourneySection = ({ selectedAudience }: JourneySectionProps) => {
                 if (element) {
                   const headerHeight = 64;
                   const elementPosition = element.getBoundingClientRect().top;
-                  const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+                  const offsetPosition =
+                    elementPosition + window.pageYOffset - headerHeight;
                   window.scrollTo({
                     top: offsetPosition,
                     behavior: "smooth",
