@@ -144,20 +144,20 @@ const LandingPage = () => {
         <meta property="og:type" content="website" />
         <meta
           property="og:url"
-          content="https://weuniversal.com/landing-page"
+          content="https://we-site-ten.vercel.app/"
         />
         <meta
           property="og:image"
-          content="https://weuniversal.com/og-image.jpg"
+          content="https://we-site-ten.vercel.app/og-image.jpg"
         />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={seoContent.title} />
         <meta name="twitter:description" content={seoContent.description} />
         <meta
           name="twitter:image"
-          content="https://weuniversal.com/og-image.jpg"
+          content="https://we-site-ten.vercel.app/og-image.jpg"
         />
-        <link rel="canonical" href="https://weuniversal.com/landing-page" />
+        <link rel="canonical" href="https://we-site-ten.vercel.app/" />
         <meta name="robots" content="index, follow" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta httpEquiv="Content-Language" content="en-IN" />
@@ -168,11 +168,11 @@ const LandingPage = () => {
             "@context": "https://schema.org",
             "@type": "WebSite",
             name: "WE Universal",
-            url: "https://weuniversal.com",
+            url: "https://we-site-ten.vercel.app",
             description: seoContent.description,
             potentialAction: {
               "@type": "SearchAction",
-              target: "https://weuniversal.com/search?q={search_term_string}",
+              target: "https://we-site-ten.vercel.app/search?q={search_term_string}",
               "query-input": "required name=search_term_string",
             },
           })}
