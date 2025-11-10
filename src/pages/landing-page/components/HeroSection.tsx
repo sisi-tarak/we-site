@@ -24,7 +24,7 @@ const HeroSection = ({
       icon: "Users",
       description: "Earn flexible income",
       color: "text-success",
-      heroTitle: "Earn 100% - Workers Never Pay Commission",
+      heroTitle: "Workers Never Pay Commission",
       heroSubtitle:
         "Join 10,000+ students earning ₹10,000+/month. Zero commission forever. Earn rewards, badges, and bonuses as you complete tasks.",
       ctaText: "Start Earning Now",
@@ -41,7 +41,7 @@ const HeroSection = ({
       icon: "Building2",
       description: "Find verified talent",
       color: "text-secondary",
-      heroTitle: "Flexible Subscription Plans for Task Posting",
+      heroTitle: "Flexible Subscription Plans - Task Posting",
       heroSubtitle:
         "Choose a plan that fits your needs. Post tasks with zero commission up to your limit. AI-powered invoicing and dynamic delivery fees.",
       ctaText: "View Pricing Plans",
