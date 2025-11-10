@@ -352,7 +352,7 @@ const Header = ({ className = "" }: HeaderProps) => {
                 className={`font-body-medium text-sm transition-smooth hover:text-primary cursor-pointer ${
                   activeSection === section.id
                     ? "text-primary border-b-2 border-primary pb-1"
-                    : "text-text-secondary"
+                    : "text-black/75"
                 }`}
               >
                 {section.audienceLabels[selectedAudience]}

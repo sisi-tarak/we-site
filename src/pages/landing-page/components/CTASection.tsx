@@ -93,7 +93,10 @@ const CTASection = ({ selectedAudience }: CTASectionProps) => {
   const content = ctaContent[selectedAudience];
 
   return (
-    <section id="get-started" className="py-20 bg-gradient-to-br from-primary via-primary/90 to-secondary relative overflow-hidden">
+    <section
+      id="get-started"
+      className="py-20 bg-gradient-to-br from-primary via-primary/90 to-secondary relative overflow-hidden"
+    >
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Animated Gradient Orbs */}
@@ -292,8 +295,10 @@ const CTASection = ({ selectedAudience }: CTASectionProps) => {
                     const element = document.getElementById("get-started");
                     if (element) {
                       const headerHeight = 64;
-                      const elementPosition = element.getBoundingClientRect().top;
-                      const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+                      const elementPosition =
+                        element.getBoundingClientRect().top;
+                      const offsetPosition =
+                        elementPosition + window.pageYOffset - headerHeight;
                       window.scrollTo({
                         top: offsetPosition,
                         behavior: "smooth",
@@ -346,7 +351,7 @@ const CTASection = ({ selectedAudience }: CTASectionProps) => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
-                        className="bg-white/20 border-white/30 text-white placeholder-white/60 focus:border-accent focus:ring-accent"
+                        className="bg-white/10 text-white placeholder-white/80 focus:border-accent focus:ring-accent focus:outline-none border-white/40 focus:border-none focus:ring-0 "
                       />
 
                       <Input
@@ -355,7 +360,7 @@ const CTASection = ({ selectedAudience }: CTASectionProps) => {
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         required
-                        className="bg-white/20 border-white/30 text-white placeholder-white/60 focus:border-accent focus:ring-accent"
+                        className="bg-white/10 text-white placeholder-white/80 focus:border-accent focus:ring-accent border-white/40 focus:border-none focus:outline-none focus:ring-0"
                       />
 
                       <Button
@@ -432,11 +437,13 @@ const CTASection = ({ selectedAudience }: CTASectionProps) => {
               onClick={(e) => {
                 e.preventDefault();
                 // Scroll to top of form in this section
-                const formElement = document.querySelector('#get-started form');
+                const formElement = document.querySelector("#get-started form");
                 if (formElement) {
                   const headerHeight = 64;
-                  const elementPosition = formElement.getBoundingClientRect().top;
-                  const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+                  const elementPosition =
+                    formElement.getBoundingClientRect().top;
+                  const offsetPosition =
+                    elementPosition + window.pageYOffset - headerHeight;
                   window.scrollTo({
                     top: offsetPosition,
                     behavior: "smooth",

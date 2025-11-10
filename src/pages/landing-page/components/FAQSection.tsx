@@ -89,7 +89,8 @@ const FAQSection = ({ selectedAudience }: FAQSectionProps) => {
     },
     {
       id: "business-5",
-      question: "What happens if my actual grocery bill is more than estimated?",
+      question:
+        "What happens if my actual grocery bill is more than estimated?",
       answer: `If the actual bill exceeds the estimate, you only pay the estimated amount (the buffer covers the difference). However, if it exceeds significantly, you may need to approve an additional payment. The system will notify you and you can approve or dispute the difference.`,
       audience: ["business"],
       category: "invoice",
@@ -446,14 +447,14 @@ const FAQSection = ({ selectedAudience }: FAQSectionProps) => {
 
             <div className="flex flex-col sm:flex-row gap-4 mt-6 justify-center">
               <a
-                href="mailto:support@weuniversal.com"
+                href="mailto:workearn.community@gmail.com"
                 className="inline-flex items-center space-x-2 bg-primary text-primary-foreground px-6 py-3 rounded-xl font-body-medium hover:bg-primary/90 transition-smooth"
               >
                 <Icon name="Mail" size={16} />
                 <span>Email Support</span>
               </a>
               <a
-                href="https://wa.me/919876543210"
+                href="https://wa.me/9502414128"
                 className="inline-flex items-center space-x-2 bg-success text-white px-6 py-3 rounded-xl font-body-medium hover:bg-success/90 transition-smooth"
               >
                 <Icon name="MessageCircle" size={16} />
