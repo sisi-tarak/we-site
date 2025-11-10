@@ -141,7 +141,7 @@ const CTASection = ({ selectedAudience }: CTASectionProps) => {
     investor: {
       title: "Join Our Partnership Waitlist",
       subtitle:
-        "Interested in partnering with WE Universal? Get early access to future investment and business collaboration opportunities.",
+        "Interested in partnering with WE Community? Get early access to future investment and business collaboration opportunities.",
       primaryCTA: "Join Waitlist",
       secondaryCTA: "Learn More",
       urgency: "Early access to partnership opportunities",

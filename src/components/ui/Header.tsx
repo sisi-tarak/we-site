@@ -316,7 +316,7 @@ const Header = ({ className = "" }: HeaderProps) => {
           <div className="flex items-center">
             <img
               src={logoImg}
-              alt="WE Universal Logo"
+              alt="WE Community Logo"
               width={100}
               height={100}
             />
@@ -338,7 +338,7 @@ const Header = ({ className = "" }: HeaderProps) => {
                 <span className="text-white font-heading-bold text-sm">WE</span>
               </div>
               <span className="font-heading-bold text-xl text-foreground hidden sm:inline-block">
-                WE Universal
+                WE Community
               </span>
             </button> */}
           </div>

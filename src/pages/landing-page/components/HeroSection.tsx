@@ -60,7 +60,7 @@ const HeroSection = ({
       color: "text-warning",
       heroTitle: "Join Our Partnership Waitlist",
       heroSubtitle:
-        "Interested in partnering with WE Universal? Join our waitlist for future investment opportunities and business collaborations.",
+        "Interested in partnering with WE Community? Join our waitlist for future investment opportunities and business collaborations.",
       ctaText: "Join Waitlist",
       benefits: [
         "Early access to opportunities",

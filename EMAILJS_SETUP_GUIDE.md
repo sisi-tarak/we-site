@@ -1,4 +1,4 @@
-# EmailJS Setup Guide for WE Universal
+# EmailJS Setup Guide for WE Community
 
 This guide will help you set up EmailJS to send form submissions via email.
 
@@ -27,6 +27,7 @@ This guide will help you set up EmailJS to send form submissions via email.
 5. Once connected, note your **Service ID** (e.g., `service_xxxxxxxxx`)
 
 ### For Gmail:
+
 - You'll need to enable "Less secure app access" or use App Password
 - Or use OAuth 2.0 for better security
 
@@ -36,63 +37,100 @@ This guide will help you set up EmailJS to send form submissions via email.
 2. Click **Create New Template**
 3. Use this template structure:
 
-**Template Name:** `WE Universal Form Submission`
+**Template Name:** `WE Community Form Submission`
 
-**Subject:** `New {{audience_type}} Signup - WE Universal`
+**Subject:** `New {{audience_type}} Signup - WE Community`
 
 **Content (HTML):**
+
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-  <style>
-    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-    .header { background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%); color: white; padding: 20px; border-radius: 8px 8px 0 0; }
-    .content { background: #f9f9f9; padding: 20px; border: 1px solid #ddd; }
-    .field { margin-bottom: 15px; }
-    .label { font-weight: bold; color: #555; }
-    .value { color: #333; margin-top: 5px; }
-    .footer { background: #f0f0f0; padding: 15px; text-align: center; font-size: 12px; color: #666; border-radius: 0 0 8px 8px; }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="header">
-      <h2>🚀 New Signup - WE Universal</h2>
+  <head>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .header {
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+        color: white;
+        padding: 20px;
+        border-radius: 8px 8px 0 0;
+      }
+      .content {
+        background: #f9f9f9;
+        padding: 20px;
+        border: 1px solid #ddd;
+      }
+      .field {
+        margin-bottom: 15px;
+      }
+      .label {
+        font-weight: bold;
+        color: #555;
+      }
+      .value {
+        color: #333;
+        margin-top: 5px;
+      }
+      .footer {
+        background: #f0f0f0;
+        padding: 15px;
+        text-align: center;
+        font-size: 12px;
+        color: #666;
+        border-radius: 0 0 8px 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h2>🚀 New Signup - WE Community</h2>
+      </div>
+      <div class="content">
+        <div class="field">
+          <div class="label">Audience Type:</div>
+          <div class="value">{{audience_type}}</div>
+        </div>
+        <div class="field">
+          <div class="label">Email:</div>
+          <div class="value">{{user_email}}</div>
+        </div>
+        <div class="field">
+          <div class="label">Phone:</div>
+          <div class="value">{{user_phone}}</div>
+        </div>
+        <div class="field">
+          <div class="label">Submitted At:</div>
+          <div class="value">{{submission_date}}</div>
+        </div>
+        <div class="field">
+          <div class="label">User Agent:</div>
+          <div class="value">{{user_agent}}</div>
+        </div>
+      </div>
+      <div class="footer">
+        <p>
+          This is an automated email from WE Community landing page form
+          submission.
+        </p>
+        <p>Platform launching March 2026</p>
+      </div>
     </div>
-    <div class="content">
-      <div class="field">
-        <div class="label">Audience Type:</div>
-        <div class="value">{{audience_type}}</div>
-      </div>
-      <div class="field">
-        <div class="label">Email:</div>
-        <div class="value">{{user_email}}</div>
-      </div>
-      <div class="field">
-        <div class="label">Phone:</div>
-        <div class="value">{{user_phone}}</div>
-      </div>
-      <div class="field">
-        <div class="label">Submitted At:</div>
-        <div class="value">{{submission_date}}</div>
-      </div>
-      <div class="field">
-        <div class="label">User Agent:</div>
-        <div class="value">{{user_agent}}</div>
-      </div>
-    </div>
-    <div class="footer">
-      <p>This is an automated email from WE Universal landing page form submission.</p>
-      <p>Platform launching March 2026</p>
-    </div>
-  </div>
-</body>
+  </body>
 </html>
 ```
 
 **Template Variables:**
+
 - `{{audience_type}}` - Worker/Business/Investor
 - `{{user_email}}` - User's email address
 - `{{user_phone}}` - User's phone number
@@ -128,18 +166,21 @@ VITE_EMAILJS_TEMPLATE_ID=your_template_id_here
 ## Troubleshooting
 
 ### Email not received?
+
 - Check your EmailJS dashboard → **Logs** to see if the email was sent
 - Verify all environment variables are set correctly
 - Check spam/junk folder
 - Ensure your email service is properly connected
 
 ### Form submission fails?
+
 - Check browser console for errors
 - Verify EmailJS credentials in `.env` file
 - Make sure you're using the correct Service ID and Template ID
 - Check EmailJS dashboard for any service errors
 
 ### Rate Limits
+
 - Free EmailJS account: 200 emails/month
 - Upgrade to paid plan for more emails if needed
 
@@ -154,4 +195,3 @@ VITE_EMAILJS_TEMPLATE_ID=your_template_id_here
 
 - EmailJS Documentation: https://www.emailjs.com/docs/
 - EmailJS Support: support@emailjs.com
-

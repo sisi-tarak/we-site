@@ -392,7 +392,7 @@ const PricingSection = ({ selectedAudience }: PricingSectionProps) => {
         >
           <div className="bg-card border border-border rounded-2xl p-8 max-w-4xl mx-auto">
             <h4 className="font-heading-bold text-foreground mb-4">
-              {selectedAudience === "worker" && "Why Workers Love WE Universal"}
+              {selectedAudience === "worker" && "Why Workers Love WE Community"}
               {selectedAudience === "business" &&
                 "Key Benefits of Our Pricing Model"}
               {selectedAudience === "investor" && "Partnership Benefits"}

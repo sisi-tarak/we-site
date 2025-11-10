@@ -18,7 +18,7 @@ const FAQSection = ({ selectedAudience }: FAQSectionProps) => {
     {
       id: "worker-1",
       question: "Do workers pay commission?",
-      answer: `No! Workers never pay commission. You keep 100% of task payments forever. WE Universal is completely free for workers - sign up, verify, and start earning with zero commission on all your earnings.`,
+      answer: `No! Workers never pay commission. You keep 100% of task payments forever. WE Community is completely free for workers - sign up, verify, and start earning with zero commission on all your earnings.`,
       audience: ["worker"],
       category: "pricing",
     },
@@ -127,7 +127,7 @@ const FAQSection = ({ selectedAudience }: FAQSectionProps) => {
     // Investor FAQs
     {
       id: "investor-1",
-      question: "How can I invest or partner with WE Universal?",
+      question: "How can I invest or partner with WE Community?",
       answer: `We're currently building our partnership program. Join our waitlist to get early access to future investment rounds and partnership opportunities. You'll receive regular platform updates, market insights, metrics, and priority notifications about investment and business collaboration opportunities.`,
       audience: ["investor"],
       category: "investment",
@@ -141,7 +141,7 @@ const FAQSection = ({ selectedAudience }: FAQSectionProps) => {
     },
     {
       id: "investor-3",
-      question: "What makes WE Universal different?",
+      question: "What makes WE Community different?",
       answer: `Our AI-powered invoicing, dynamic delivery fees, transparent escrow system with automatic refunds, worker rewards program, and flexible subscription model create a unique value proposition. We focus on transparency, fairness, and user-centric design with verified users and instant UPI payments.`,
       audience: ["investor"],
       category: "competitive",
@@ -178,7 +178,7 @@ const FAQSection = ({ selectedAudience }: FAQSectionProps) => {
     },
     {
       id: "general-5",
-      question: "Is WE Universal available in my city?",
+      question: "Is WE Community available in my city?",
       answer: `We currently operate in 25+ cities across India including Bangalore, Mumbai, Delhi, Chennai, Hyderabad, Pune, and expanding rapidly. We focus on tier-1 and tier-2 cities with strong educational institutions. Check our website for the latest city availability or express interest for your city.`,
       audience: ["worker", "business", "investor"],
       category: "availability",
@@ -186,7 +186,7 @@ const FAQSection = ({ selectedAudience }: FAQSectionProps) => {
     {
       id: "general-6",
       question: "How do I contact customer support?",
-      answer: `Our support team is available 24/7 through multiple channels: in-app chat, WhatsApp, email (support@weuniversal.com), and phone support. Subscribers get priority support. Average response time is under 2 hours. For urgent issues, use in-app chat for fastest response.`,
+      answer: `Our support team is available 24/7 through multiple channels: in-app chat, WhatsApp, email (support@weCommunity.com), and phone support. Subscribers get priority support. Average response time is under 2 hours. For urgent issues, use in-app chat for fastest response.`,
       audience: ["worker", "business", "investor"],
       category: "support",
     },

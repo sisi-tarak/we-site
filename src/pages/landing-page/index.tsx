@@ -76,7 +76,7 @@ const LandingPage = () => {
 
   // SEO content based on audience
   const getSEOContent = () => {
-    const baseTitle = "WE Universal - India's Most Trusted Gig Platform";
+    const baseTitle = "WE Community - India's Most Trusted Gig Platform";
     const baseDescription =
       "AI-powered gig platform with zero commission for workers, flexible subscription plans for businesses, dynamic delivery fees, and automatic refunds. 100% verified users, instant UPI payments.";
 
@@ -118,12 +118,12 @@ const LandingPage = () => {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <img src={logoImg} alt="WE Universal Logo" width={150} height={150} />
+          <img src={logoImg} alt="WE Community Logo" width={150} height={150} />
           {/* <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center mx-auto mb-4 animate-pulse">
             <span className="text-white font-heading-bold text-xl">WE</span>
           </div>
           <div className="text-lg font-heading-bold text-foreground mb-2">
-            Loading WE Universal
+            Loading WE Community
           </div>
           <div className="text-sm text-text-secondary">
             Preparing your personalized experience...
@@ -142,10 +142,7 @@ const LandingPage = () => {
         <meta property="og:title" content={seoContent.title} />
         <meta property="og:description" content={seoContent.description} />
         <meta property="og:type" content="website" />
-        <meta
-          property="og:url"
-          content="https://we-site-ten.vercel.app/"
-        />
+        <meta property="og:url" content="https://we-site-ten.vercel.app/" />
         <meta
           property="og:image"
           content="https://we-site-ten.vercel.app/og-image.jpg"
@@ -167,12 +164,13 @@ const LandingPage = () => {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebSite",
-            name: "WE Universal",
+            name: "WE Community",
             url: "https://we-site-ten.vercel.app",
             description: seoContent.description,
             potentialAction: {
               "@type": "SearchAction",
-              target: "https://we-site-ten.vercel.app/search?q={search_term_string}",
+              target:
+                "https://we-site-ten.vercel.app/search?q={search_term_string}",
               "query-input": "required name=search_term_string",
             },
           })}
@@ -194,7 +192,7 @@ const LandingPage = () => {
           onAudienceChange={handleAudienceChange}
         />
 
-        {/* Universal Value Proposition - Rotating benefits */}
+        {/* Community Value Proposition - Rotating benefits */}
         <ValuePropositionSection selectedAudience={selectedAudience} />
 
         {/* Three-Path Journey - Interactive timeline */}
